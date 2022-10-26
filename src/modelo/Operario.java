@@ -45,16 +45,20 @@ public class Operario {
 
    /**
     * Crea un nuevo operario del sistema que permite gestionar mozos, mesas, comandas y pedidos. <br>
-    * <b>Pre:</b> Todos los parametros deben ser distintos de null. nya y username deben ser representativos del operario correspondiente.<br>
+    * <b>Pre:</b> Todos los parametros deben ser distintos de null. nya y username deben ser representativos del operario correspondiente.
+    * nya, username y password deben tener al menos 5 caracteres.<br>
     * <b>Post:</b> El operario debe ser instanciado de forma que puede ingresar al sistema mediante su username y contrasena pasados por parametro.<br>
-     * @param nya : Es el nombre y apellido reales del operario.
-    * @param username : Es el nombre de usuario con el cual el operario sera identificado en el sistema. Debe ser unico.
-    * @param password : Es la constrasena con la cual el el operario podra iniciar sesion en el sistema y acceder a sus funciones.
+    * @param nya : Es el nombre y apellido reales del operario.
+    * @param username : Es el nombre de usuario con el cual el operario sera identificado en el sistema.
+    * @param password : Es la constrasena con la cual el operario podra iniciar sesion en el sistema y acceder a sus funciones.
     */
    public Operario(String nya, String username, String password) {
       assert nya != null : "El nombre y apellido del operario no puede ser nulo.";
       assert username != null : "El nombre de usuario del operario no puede ser nulo.";
       assert password != null : "La contrasena del operario no puede ser nula.";
+      assert nya.length() >= 5 : "El nombre y apellido del operario debe tener al menos 5 caracteres.";
+      assert username.length() >= 5 : "El nombre de usuario del operario debe tener al menos 5 caracteres.";
+        assert password.length() >= 5 : "La contrasena del operario debe tener al menos 5 caracteres.";
       this.nya = nya;
       this.username = username;
       this.password = password;
@@ -69,6 +73,7 @@ public class Operario {
     *
     * @param nya : El nombre del mozo al cual se quiere cambiar su estado.
     * @param estado : El estado que se quiere asignar al mozo.
+    * @throws MozoInexistenteException : Se lanza si el mozo pasado por parametro no existe.
     */
    public void setEstado(String nya, EstadoMozo estado) throws MozoInexistenteException {
       assert nya != null : "El nombre del mozo no puede ser nulo.";
@@ -84,6 +89,9 @@ public class Operario {
     *
     * @param nya : El mozo al cual se quiere agregar una mesa.
     * @param nroMesa : Numero de mesa a asignarle.
+    * @throws MozoInexistenteException : Se lanza si el mozo pasado por parametro no existe.
+    * @throws MesaInexistenteException : Se lanza si la mesa pasada por parametro no existe.
+    * @throws MesaNoDisponibleException : Se lanza si la mesa pasada por parametro no esta disponible.
     */
    public void asignarMesa(String nya, int nroMesa) throws MozoInexistenteException, MozoNoDisponibleException, MesaInexistenteException, MesaNoDisponibleException {
       assert nya != null : "El nombre del mozo no puede ser nulo.";
@@ -98,11 +106,31 @@ public class Operario {
     * <b>Post: </b> Se cierra la mesa y se deja libre.<br>
     *
     * @param nroMesa : Numero de mesa a cerrar.
+    * @throws MesaInexistenteException : Se lanza si la mesa pasada por parametro no existe.
+    * @throws MesaNoDisponibleException : Se lanza si la mesa pasada por parametro no esta disponible.
     */
     public void cerrarMesa(int nroMesa) throws MesaInexistenteException, MesaNoDisponibleException {
        assert nroMesa >= 0 : "El numero de mesa no puede ser menor a 0.";
        Cerveceria.getInstance().cerrarMesa(nroMesa);
        this.invariante();
+    }
+
+   /**
+    * Cambia la contrasena del operario.<br>
+    * <b>Pre:</b> El parametro password debe ser distinto de null y debe tener al menos 5 caracteres.<br>
+    * <b>Post:</b> La contrasena del operario debe ser la pasada por parametro.<br>
+    * @param nuevaContrasena : Es la nueva contrasena del operario.
+    */
+   public void cambiarContrasena(String nuevaContrasena) {
+       assert nuevaContrasena != null : "La contrasena no puede ser nula.";
+       assert nuevaContrasena.length() >= 5 : "La contrasena debe tener al menos 5 caracteres.";
+       this.password = nuevaContrasena;
+       this.invariante();
+    }
+
+    public void tomarComanda() {
+      // TODO Auto-generated method stub
+
     }
 
    private void invariante() {

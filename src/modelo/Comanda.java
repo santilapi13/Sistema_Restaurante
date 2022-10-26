@@ -41,14 +41,32 @@ public class Comanda {
     public ArrayList<Pedido> getPedidos() {
         return pedidos;
     }
+
+    /**
+     * Agrega un pedido a la comanda.<br>
+     * <b>Pre:</b> El parametro pedido debe ser distinto de null.<br>
+     * <b>Post:</b> Se agregara el pedido pasado por parametro a la comanda.<br>
+     *
+     * @param pedido : Pedido con los productos a agregar a la comanda.
+     */
     public void agregarPedido(Pedido pedido){
+        assert pedido != null : "El pedido no puede ser nulo";
         this.pedidos.add(pedido);
         this.invariante();
     }
+
+    /**
+     * Elimina el pedido pasado por parametro de la comanda.<br>
+     * <b>Pre:</b> El parametro pedido debe ser distinto de null.<br>
+     * <b>Post:</b> Se eliminara el pedido pasado por parametro de la comanda.<br>
+     *
+     * @param pedido: Pedido a eliminar de la comanda.
+     */
     public void eliminarPedido(Pedido pedido){
         this.pedidos.remove(pedido);
         this.invariante();
     }
+
     public void cerrarComanda(){
         this.abierta = false;
     }

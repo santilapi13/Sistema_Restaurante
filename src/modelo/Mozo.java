@@ -4,6 +4,7 @@ package modelo;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * Clase que representa a un mozo de la cerveceria.<br>
@@ -18,6 +19,7 @@ public class Mozo {
     private int cantHijos;
     private int cantVentas;
     private double totalVentas;
+    private ArrayList<Mesa> mesas = new ArrayList<Mesa>();
 
     private EstadoMozo estado = null;
 
@@ -79,10 +81,19 @@ public class Mozo {
         this.estado = estado;
     }
 
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public ArrayList<Mesa> getMesas() {
+        return mesas;
+    }
+
     private void invariante() {
         assert nya != null : "El nombre y apellido del mozo no puede ser nulo";
         assert fechaNacimiento != null : "La fecha de nacimiento del mozo no puede ser nula";
         assert cantHijos >= 0 : "La cantidad de hijos del mozo no puede ser negativa";
         assert getEdad() >= 18 : "La edad debe ser mayor o igual que 18";
     }
+
 }
