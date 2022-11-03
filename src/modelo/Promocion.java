@@ -1,5 +1,6 @@
 package modelo;
 
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 
 /**
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * - El dia debe ser distinto de null.<br>
  */
 public class Promocion {
-    private ArrayList<DiaSemana> diasDePromo = new ArrayList<DiaSemana>();
+    private ArrayList<DayOfWeek> diasDePromo = new ArrayList<DayOfWeek>();
     private boolean activa = false;
 
     /**
@@ -17,7 +18,7 @@ public class Promocion {
      * <b>Post:</b> Se agregara el dia de la semana en el que corre la promocion.<br>
      * @param dia
      */
-    protected void agregarDia(DiaSemana dia) {
+    protected void agregarDia(DayOfWeek dia) {
         assert dia != null : "El dia no puede ser null";
         diasDePromo.add(dia);
     }
@@ -28,13 +29,13 @@ public class Promocion {
      * <b>Post:</b> Se eliminara el dia de la semana especificado de la lista de dias en los que corre la promocion.<br>
      * @param dia
      */
-    protected void eliminarDia(DiaSemana dia) {
+    protected void eliminarDia(DayOfWeek dia) {
         assert dia != null : "El dia no puede ser null";
         assert diasDePromo.contains(dia) : "El dia no existe en la lista de dias";
         diasDePromo.remove(dia);
     }
 
-    public ArrayList<DiaSemana> getDiasDePromo() {
+    public ArrayList<DayOfWeek> getDiasDePromo() {
         return diasDePromo;
     }
 

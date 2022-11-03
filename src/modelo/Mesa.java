@@ -9,7 +9,8 @@ package modelo;
  */
 public class Mesa {
 
-    private static int nroMesa = -1;
+    private static int nroUltima = -1;
+    private int nroMesa;
     private int cantComensales;
     private boolean asignada;
     private boolean libre;
@@ -22,7 +23,8 @@ public class Mesa {
      * @param cantComensales : Cantidad de sillas (cantidad maxima de comensales) de la mesa.
      */
     public Mesa(int cantComensales) {
-        nroMesa++;
+        nroUltima++;
+        this.nroMesa = nroUltima;
         if (nroMesa > 1)
             assert cantComensales >= 2 : "La mesa no puede tener menos de 2 comensales si no se trata de la barra.";
         else
@@ -30,6 +32,7 @@ public class Mesa {
         this.cantComensales = cantComensales;
         this.asignada = false;
         this.libre = true;
+
     }
 
     public int getNroMesa() {

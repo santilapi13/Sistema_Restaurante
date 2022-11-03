@@ -4,7 +4,8 @@ package modelo;
  * Clase que representa una promoción sobre un producto.<br>
  */
 public class PromoProducto extends Promocion {
-    private static int id_promo = 0;
+    private static int id_ultimo = 0;
+    private int id_promo;
     private Producto producto;
     private boolean aplicaDosPorUno;
     private boolean aplicaDtoPorCantidad;
@@ -17,14 +18,13 @@ public class PromoProducto extends Promocion {
      * dtoPorCantidad_CantMinima y dtoPorCantidad_Precio_Unit deben ser mayor o igual a 0 (si son 0 es porque no aplicaDtoPorCantidad).
      * <b>Post:</b> Se creara una promoción sobre un producto.<br>
      *
-     * @param dia : El dia de la semana en que se aplica la promoción.
      * @param producto : El producto sobre el que se aplica la promoción.
      * @param aplicaDosPorUno : Indica si la promoción es 2x1.
      * @param aplicaDtoPorCantidad : Indica si la promoción es por cantidad.
      * @param dtoPorCantidad_CantMinima : La cantidad mínima para aplicar el descuento por cantidad.
      * @param dtoPorCantidad_PrecioUnit : El nuevo precio unitario del producto al aplicar el descuento por cantidad.
      */
-    public PromoProducto(DiaSemana dia, Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnit) {
+    public PromoProducto(Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnit) {
         assert producto != null : "El producto no puede ser null";
         assert aplicaDosPorUno || aplicaDtoPorCantidad : "Debe aplicar al menos un tipo de promoción";
         assert dtoPorCantidad_CantMinima >= 0 : "La cantidad mínima debe ser mayor o igual a 0";
@@ -39,7 +39,8 @@ public class PromoProducto extends Promocion {
         this.aplicaDosPorUno = aplicaDosPorUno;
         this.aplicaDtoPorCantidad = aplicaDtoPorCantidad;
         this.dtoPorCantidad_CantMinima = dtoPorCantidad_CantMinima;
-        this.id_promo++;
+        this.id_ultimo++;
+        this.id_promo = id_ultimo;
     }
 
     public int getId_promo() {

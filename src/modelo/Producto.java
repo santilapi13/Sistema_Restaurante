@@ -8,7 +8,8 @@ package modelo;
  * - El stock debe ser mayor o igual a 0. <br>
  */
 public class Producto {
-    private static int id_producto = 0;
+    private static int id_ultimo = 0;
+    private int id_producto;
     private String nombre;
     private double pCosto;
     private double pVenta;
@@ -30,10 +31,11 @@ public class Producto {
         this.pVenta = pVenta;
         this.stock = stockInicial;
         this.invariante();
-        id_producto++;
+        id_ultimo++;
+        this.id_producto = id_ultimo;
     }
 
-    public static int getId_producto() {
+    public int getId_producto() {
         return id_producto;
     }
 

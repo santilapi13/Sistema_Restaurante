@@ -1,9 +1,6 @@
 package modelo;
 
-import excepciones.MesaInexistenteException;
-import excepciones.MesaNoDisponibleException;
-import excepciones.MozoInexistenteException;
-import excepciones.MozoNoDisponibleException;
+import excepciones.*;
 
 /**
  * Clase Operario del modelo <br>
@@ -77,7 +74,7 @@ public class Operario {
     */
    public void setEstado(String nya, EstadoMozo estado) throws MozoInexistenteException {
       assert nya != null : "El nombre del mozo no puede ser nulo.";
-      assert estado != EstadoMozo.ACTIVO && estado != EstadoMozo.FRANCO && estado != EstadoMozo.AUSENTE: "El estado no puede ser distinto de ACTIVO, FRANCO y AUSENTE";
+      assert estado == EstadoMozo.ACTIVO || estado == EstadoMozo.FRANCO || estado == EstadoMozo.AUSENTE: "El estado no puede ser distinto de ACTIVO, FRANCO y AUSENTE";
       Cerveceria.getInstance().setEstado(nya, estado);
       this.invariante();
    }
@@ -106,12 +103,13 @@ public class Operario {
     * <b>Post: </b> Se cierra la mesa y se deja libre.<br>
     *
     * @param nroMesa : Numero de mesa a cerrar.
+    * @param formaPago : Forma de pago de la cuenta.
     * @throws MesaInexistenteException : Se lanza si la mesa pasada por parametro no existe.
     * @throws MesaNoDisponibleException : Se lanza si la mesa pasada por parametro no esta disponible.
     */
-    public void cerrarMesa(int nroMesa) throws MesaInexistenteException, MesaNoDisponibleException {
+    public void cerrarMesa(int nroMesa, FormaPago formaPago) throws MesaInexistenteException, MesaNoDisponibleException {
        assert nroMesa >= 0 : "El numero de mesa no puede ser menor a 0.";
-       Cerveceria.getInstance().cerrarMesa(nroMesa);
+       Cerveceria.getInstance().cerrarMesa(nroMesa, formaPago);
        this.invariante();
     }
 
@@ -128,10 +126,23 @@ public class Operario {
        this.invariante();
     }
 
-    public void tomarComanda() {
-      // TODO Auto-generated method stub
-
-    }
+   /**
+    * Llama al metodo tomarComanda de la clase Cerveceria.<br>
+    * <b>Pre:</b> El parametro nroMesa debe ser mayor o igual que 0.<br>
+    * <b>Post:</b> Se agregaron los productos a la comanda de la mesa pasada por parametro.<br>
+    * @param nroMesa: Numero de mesa a la cual se le quiere agregar productos a la comanda.
+    * @param nombreProducto: Nombre del producto a agregar a la comanda.
+    * @param cantidad: Cantidad del producto a agregar a la comanda.
+    * @throws ProductoInexistenteException: Se lanza si el producto pasado por parametro no existe.
+    * @throws MesaInexistenteException: Se lanza si la mesa pasada por parametro no existe.
+    */
+   public void tomarComanda(int nroMesa, String nombreProducto, int cantidad) throws ProductoInexistenteException, MesaInexistenteException {
+      assert nroMesa >= 0 : "El numero de mesa no puede ser menor a 0.";
+      assert nombreProducto != null : "El nombre del producto no puede ser nulo.";
+      assert cantidad >= 0 : "La cantidad no puede ser menor a 0.";
+      Cerveceria.getInstance().tomarComanda(nroMesa, nombreProducto, cantidad);
+      this.invariante();
+   }
 
    private void invariante() {
       assert this.nya != null : "El nombre y apellido del operario no puede ser null.";

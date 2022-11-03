@@ -17,10 +17,8 @@ public class Mozo {
     private String nya;
     private LocalDate fechaNacimiento;
     private int cantHijos;
-    private int cantVentas;
-    private double totalVentas;
     private ArrayList<Mesa> mesas = new ArrayList<Mesa>();
-
+    private ArrayList<Venta> ventas = new ArrayList<Venta>();
     private EstadoMozo estado = null;
 
     /**
@@ -57,22 +55,6 @@ public class Mozo {
         this.invariante();
     }
 
-    public int getCantVentas() {
-        return cantVentas;
-    }
-
-    public void setCantVentas(int cantVentas) {
-        this.cantVentas = cantVentas;
-    }
-
-    public double getTotalVentas() {
-        return totalVentas;
-    }
-
-    public void setTotalVentas(double totalVentas) {
-        this.totalVentas = totalVentas;
-    }
-
     public EstadoMozo getEstado() {
         return estado;
     }
@@ -89,6 +71,9 @@ public class Mozo {
         return mesas;
     }
 
+    public ArrayList<Venta> getVentas() {
+        return ventas;
+    }
     private void invariante() {
         assert nya != null : "El nombre y apellido del mozo no puede ser nulo";
         assert fechaNacimiento != null : "La fecha de nacimiento del mozo no puede ser nula";

@@ -1,6 +1,6 @@
 package modelo;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Clase que representa un pedido que forma parte de una comanda.<br>
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class Pedido {
     private Producto producto;
     private int cantidad;
-    private LocalDate fecha;
+    private LocalDateTime fecha;
 
     /**
      * Constructor de la clase Pedido.<br>
@@ -24,7 +24,7 @@ public class Pedido {
         assert producto.getStock() >= cantidad : "El stock del producto debe ser mayor o igual a la cantidad.";
         this.producto = producto;
         this.cantidad = cantidad;
-        this.fecha = LocalDate.now();
+        this.fecha = LocalDateTime.now();
     }
 
     public Producto getProducto() {
@@ -33,7 +33,7 @@ public class Pedido {
     public int getCantidad() {
         return cantidad;
     }
-    public LocalDate getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 

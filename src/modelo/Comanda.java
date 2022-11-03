@@ -1,6 +1,7 @@
 package modelo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * - La mesa debe estar ocupada mientras la comanda siga abierta.<br>
  */
 public class Comanda {
-    private LocalDate fecha;
+    private LocalDateTime fecha;
     private Mesa mesa;
     private boolean abierta;
     private ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
@@ -25,11 +26,11 @@ public class Comanda {
         assert mesa != null : "La mesa no puede ser nula";
         this.mesa = mesa;
         this.abierta = true;
-        this.fecha = LocalDate.now();
+        this.fecha = LocalDateTime.now();
         this.invariante();
     }
 
-    public LocalDate getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
     public Mesa getMesa() {
