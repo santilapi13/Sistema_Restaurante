@@ -1,5 +1,7 @@
 package modelo;
 
-public enum EstadoMozo {
+import java.io.Serializable;
+
+public enum EstadoMozo implements Serializable {
     ACTIVO, FRANCO, AUSENTE;
 }

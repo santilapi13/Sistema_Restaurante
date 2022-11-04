@@ -2,6 +2,8 @@ package modelo;
 
 import excepciones.*;
 
+import java.io.Serializable;
+
 /**
  * Clase Operario del modelo <br>
  * <b>Invariante: </b><br>
@@ -9,7 +11,7 @@ import excepciones.*;
  * - username debe ser distinto de null.
  * - password debe ser distinto de null.
  */
-public class Operario {
+public class Operario implements Serializable {
 
    protected String nya;
    protected String username;
@@ -150,4 +152,11 @@ public class Operario {
       assert this.password != null : "El password del operario no puede ser null.";
    }
 
+   public void setNya(String nya) {
+      this.nya = nya;
+   }
+
+   public void setUsername(String username) {
+      this.username = username;
+   }
 }

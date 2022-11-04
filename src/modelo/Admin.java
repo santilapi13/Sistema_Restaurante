@@ -2,12 +2,13 @@ package modelo;
 
 import excepciones.*;
 
+import java.io.Serializable;
 import java.time.DayOfWeek;
 
 /**
  * Clase que representa un operario administrador.<br>
  */
-public class Admin extends Operario {
+public class Admin extends Operario implements Serializable {
 
     public Admin() {
         super("ADMIN", "ADMIN", "ADMIN1234");

@@ -1,6 +1,7 @@
 package modelo;
 
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * - el mozo debe ser mayor de 18 anos.
  * - la cantidad de hijos debe ser mayor o igual a 0.
  */
-public class Mozo {
+public class Mozo implements Serializable {
 
     private String nya;
     private LocalDate fechaNacimiento;
@@ -81,4 +82,35 @@ public class Mozo {
         assert getEdad() >= 18 : "La edad debe ser mayor o igual que 18";
     }
 
+    public double totalVentas() {
+        int total = 0;
+        for (Venta venta : ventas) {
+            total += venta.getTotal();
+        }
+        return total;
+    }
+
+    public int cantVentas() {
+        return ventas.size();
+    }
+
+    public double promedioVentas() {
+        return totalVentas() / cantVentas();
+    }
+
+    public void setNya(String nya) {
+        this.nya = nya;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public void setMesas(ArrayList<Mesa> mesas) {
+        this.mesas = mesas;
+    }
+
+    public void setVentas(ArrayList<Venta> ventas) {
+        this.ventas = ventas;
+    }
 }

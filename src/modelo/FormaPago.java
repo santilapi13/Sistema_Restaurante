@@ -1,5 +1,7 @@
 package modelo;
 
-public enum FormaPago {
+import java.io.Serializable;
+
+public enum FormaPago implements Serializable {
     EFECTIVO, TARJETA, MP, CTADNI;
 }

@@ -18,9 +18,7 @@ public class Cerveceria extends Observable {
     private Admin administrador = new Admin();
     private ArrayList<PromoProducto> promosProductos = new ArrayList<PromoProducto>();
     private ArrayList<PromoTemporal> promosTemporales = new ArrayList<PromoTemporal>();
-    
-    
-    Operario operarioLogueado = null; //--
+    Operario operarioLogueado = null;
 
     private static Cerveceria instance = null;
     private Cerveceria() {
@@ -580,7 +578,7 @@ public class Cerveceria extends Observable {
 		
 	}
     
-    
+
     private Operario getOperario(String username) {  //----
 		int i = 0;
 		Operario operario = null;
@@ -590,5 +588,92 @@ public class Cerveceria extends Observable {
 			operario = this.operarios.get(i);
 		return operario;
 	}
-    
+
+    public String mozoMayorVentas() {
+        double maxVenta = -1;
+        String mozoMaxVenta = null;
+        for (Mozo mozo : mozos) {
+            if (mozo.totalVentas() > maxVenta) {
+                maxVenta = mozo.totalVentas();
+                mozoMaxVenta = mozo.getNya();
+            }
+        }
+        return mozoMaxVenta;
+    }
+
+    public String mozoMenorVentas() {
+        double minVenta = 999999999;
+        String mozoMinVenta = null;
+        for (Mozo mozo : mozos) {
+            if (mozo.totalVentas() < minVenta) {
+                minVenta = mozo.totalVentas();
+                mozoMinVenta = mozo.getNya();
+            }
+        }
+        return mozoMinVenta;
+    }
+
+    public ArrayList<Producto> getCarta() {
+        return carta;
+    }
+
+    public Admin getAdministrador() {
+        return administrador;
+    }
+
+    public ArrayList<PromoProducto> getPromosProductos() {
+        return promosProductos;
+    }
+
+    public ArrayList<PromoTemporal> getPromosTemporales() {
+        return promosTemporales;
+    }
+
+    public Operario getOperarioLogueado() {
+        return operarioLogueado;
+    }
+
+    public void setNombreLocal(String nombreLocal) {
+        this.nombreLocal = nombreLocal;
+    }
+
+    public void setMozos(ArrayList<Mozo> mozos) {
+        this.mozos = mozos;
+    }
+
+    public void setMesas(ArrayList<Mesa> mesas) {
+        this.mesas = mesas;
+    }
+
+    public void setCarta(ArrayList<Producto> carta) {
+        this.carta = carta;
+    }
+
+    public void setOperarios(ArrayList<Operario> operarios) {
+        this.operarios = operarios;
+    }
+
+    public void setComandasAbiertas(ArrayList<Comanda> comandasAbiertas) {
+        this.comandasAbiertas = comandasAbiertas;
+    }
+
+    public void setVentas(ArrayList<Venta> ventas) {
+        this.ventas = ventas;
+    }
+
+    public void setAdministrador(Admin administrador) {
+        this.administrador = administrador;
+    }
+
+    public void setPromosProductos(ArrayList<PromoProducto> promosProductos) {
+        this.promosProductos = promosProductos;
+    }
+
+    public void setPromosTemporales(ArrayList<PromoTemporal> promosTemporales) {
+        this.promosTemporales = promosTemporales;
+    }
+
+    public void setOperarioLogueado(Operario operarioLogueado) {
+        this.operarioLogueado = operarioLogueado;
+    }
 }

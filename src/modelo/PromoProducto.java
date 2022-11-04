@@ -66,4 +66,36 @@ public class PromoProducto extends Promocion {
     public double getDtoPorCantidad_PrecioUnit() {
         return dtoPorCantidad_PrecioUnit;
     }
+
+    public static int getId_ultimo() {
+        return id_ultimo;
+    }
+
+    public static void setId_ultimo(int id_ultimo) {
+        PromoProducto.id_ultimo = id_ultimo;
+    }
+
+    public void setId_promo(int id_promo) {
+        this.id_promo = id_promo;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public void setAplicaDosPorUno(boolean aplicaDosPorUno) {
+        this.aplicaDosPorUno = aplicaDosPorUno;
+    }
+
+    public void setAplicaDtoPorCantidad(boolean aplicaDtoPorCantidad) {
+        this.aplicaDtoPorCantidad = aplicaDtoPorCantidad;
+    }
+
+    public void setDtoPorCantidad_CantMinima(int dtoPorCantidad_CantMinima) {
+        this.dtoPorCantidad_CantMinima = dtoPorCantidad_CantMinima;
+    }
+
+    public void setDtoPorCantidad_PrecioUnit(double dtoPorCantidad_PrecioUnit) {
+        this.dtoPorCantidad_PrecioUnit = dtoPorCantidad_PrecioUnit;
+    }
 }

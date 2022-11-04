@@ -1,5 +1,7 @@
 package modelo;
 
+import java.io.Serializable;
+
 /**
  * Clase Mesa del modelo <br>
  * <b>Invariante: </b><br>
@@ -7,7 +9,7 @@ package modelo;
  * - los nroMesa no pueden repetirse.
  * - la cantComensales debe ser mayor o igual a 2 cuando nroMesa es mayor a 1.
  */
-public class Mesa {
+public class Mesa implements Serializable {
 
     private static int nroUltima = -1;
     private int nroMesa;
@@ -55,5 +57,17 @@ public class Mesa {
     }
     public void setLibre(boolean libre) {
         this.libre = libre;
+    }
+
+    public static int getNroUltima() {
+        return nroUltima;
+    }
+
+    public static void setNroUltima(int nroUltima) {
+        Mesa.nroUltima = nroUltima;
+    }
+
+    public void setNroMesa(int nroMesa) {
+        this.nroMesa = nroMesa;
     }
 }

@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * <b>Invariante</b><br>
  * - La mesa debe estar ocupada mientras la comanda siga abierta.<br>
  */
-public class Comanda {
+public class Comanda implements Serializable {
     private LocalDateTime fecha;
     private Mesa mesa;
     private boolean abierta;

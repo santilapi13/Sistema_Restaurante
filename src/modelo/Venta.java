@@ -1,12 +1,13 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Clase que representa una venta de una comanda.
  *
  */
-public class Venta {
+public class Venta implements Serializable {
     private Comanda comanda;
     private double total;
     private FormaPago formaPago;
@@ -39,6 +40,26 @@ public class Venta {
 
     public FormaPago getFormaPago() {
         return formaPago;
+    }
+
+    public void setComanda(Comanda comanda) {
+        this.comanda = comanda;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public void setFormaPago(FormaPago formaPago) {
+        this.formaPago = formaPago;
+    }
+
+    public ArrayList<Promocion> getPromosAplicadas() {
+        return promosAplicadas;
+    }
+
+    public void setPromosAplicadas(ArrayList<Promocion> promosAplicadas) {
+        this.promosAplicadas = promosAplicadas;
     }
 }
 

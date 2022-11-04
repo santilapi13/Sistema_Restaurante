@@ -1,5 +1,7 @@
 package modelo;
 
+import java.io.Serializable;
+
 /**
  * Clase Producto del modelo <br>
  * <b>Invariante: </b><br>
@@ -7,7 +9,7 @@ package modelo;
  * - El pVenta y pCosto deben ser mayores a 0. <br>
  * - El stock debe ser mayor o igual a 0. <br>
  */
-public class Producto {
+public class Producto implements Serializable {
     private static int id_ultimo = 0;
     private int id_producto;
     private String nombre;
@@ -75,5 +77,21 @@ public class Producto {
         assert this.pVenta > 0 : "El precio de venta debe ser mayor a 0.";
         assert this.pCosto > 0 : "El precio de costo debe ser mayor a 0.";
         assert this.stock >= 0 : "El stock debe ser mayor o igual a 0.";
+    }
+
+    public static int getId_ultimo() {
+        return id_ultimo;
+    }
+
+    public static void setId_ultimo(int id_ultimo) {
+        Producto.id_ultimo = id_ultimo;
+    }
+
+    public void setId_producto(int id_producto) {
+        this.id_producto = id_producto;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

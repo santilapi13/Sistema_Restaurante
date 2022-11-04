@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
  * <b>Invariante:</b><br>
  * - El dia debe ser distinto de null.<br>
  */
-public class Promocion {
+public class Promocion implements Serializable {
     private ArrayList<DayOfWeek> diasDePromo = new ArrayList<DayOfWeek>();
     private boolean activa = false;
 
@@ -45,5 +46,9 @@ public class Promocion {
 
     public void setActiva(boolean activa) {
         this.activa = activa;
+    }
+
+    public void setDiasDePromo(ArrayList<DayOfWeek> diasDePromo) {
+        this.diasDePromo = diasDePromo;
     }
 }

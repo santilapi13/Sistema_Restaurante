@@ -1,11 +1,12 @@
 package modelo;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * Clase que representa un pedido que forma parte de una comanda.<br>
  */
-public class Pedido {
+public class Pedido implements Serializable {
     private Producto producto;
     private int cantidad;
     private LocalDateTime fecha;
@@ -37,4 +38,15 @@ public class Pedido {
         return fecha;
     }
 
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
 }

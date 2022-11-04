@@ -63,4 +63,28 @@ public class PromoTemporal extends Promocion {
     public int getHoraFin() {
         return horaFin;
     }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setFormaPago(FormaPago formaPago) {
+        this.formaPago = formaPago;
+    }
+
+    public void setPorcentajeDesc(double porcentajeDesc) {
+        this.porcentajeDesc = porcentajeDesc;
+    }
+
+    public void setEsAcumulable(boolean esAcumulable) {
+        this.esAcumulable = esAcumulable;
+    }
+
+    public void setHoraInicio(int horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public void setHoraFin(int horaFin) {
+        this.horaFin = horaFin;
+    }
 }
