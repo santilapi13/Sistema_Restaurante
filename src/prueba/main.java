@@ -29,9 +29,9 @@ public class main {
                 admin.agregarPromocion("Cerveza", true, false, 0, 0);
                 admin.agregarPromocion("Happy Hour", FormaPago.EFECTIVO, 0.2, true, 19, 21);
 
-                admin.agregarDiaPromocion(DayOfWeek.THURSDAY, "Happy Hour");
-                admin.agregarDiaPromocion(DayOfWeek.THURSDAY, 1);
-                admin.agregarDiaPromocion(DayOfWeek.THURSDAY, 2);
+                admin.agregarDiaPromocion(DayOfWeek.FRIDAY, "Happy Hour");
+                admin.agregarDiaPromocion(DayOfWeek.FRIDAY, 1);
+                admin.agregarDiaPromocion(DayOfWeek.FRIDAY, 2);
 
                 admin.agregarMesa(1);
                 admin.agregarMesa(6);

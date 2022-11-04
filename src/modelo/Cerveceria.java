@@ -4,8 +4,9 @@ import excepciones.*;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class Cerveceria {
+public class Cerveceria extends Observable {
 
     private String nombreLocal;
     private ArrayList<Mozo> mozos = new ArrayList<Mozo>();
@@ -17,6 +18,9 @@ public class Cerveceria {
     private Admin administrador = new Admin();
     private ArrayList<PromoProducto> promosProductos = new ArrayList<PromoProducto>();
     private ArrayList<PromoTemporal> promosTemporales = new ArrayList<PromoTemporal>();
+    
+    
+    Operario operarioLogueado = null; //--
 
     private static Cerveceria instance = null;
     private Cerveceria() {
@@ -546,4 +550,45 @@ public class Cerveceria {
     public ArrayList<Venta> getVentas() {
         return ventas;
     }
+    
+    
+    public void loguear(String username, String password, String tipo) {   //----
+		int i = 0;
+		String mensaje = "INCORRECTO";
+		if (tipo.equalsIgnoreCase("ADMIN")) {
+			if (this.getAdmin().getUsername().equalsIgnoreCase(username) && this.getAdmin().getPassword().equalsIgnoreCase(password))
+             mensaje = "ADMIN";
+
+		} else if (tipo.equalsIgnoreCase("OPERARIO")) {
+
+			while (i < this.operarios.size() && !this.operarios.get(i).getUsername().equalsIgnoreCase(username))
+				i++;
+			if (i < this.operarios.size() && this.operarios.get(i).getPassword().equals(password))
+				mensaje = "OPERARIO";
+
+		} 
+		
+		this.setChanged();
+		this.notifyObservers(mensaje);
+	}
+    
+    
+    
+    public void setOperarioLogueado(String username) { //---- Solo hay un tipo (admin hay uno solo no se busca)
+		operarioLogueado = this.getOperario(username);
+			
+		
+	}
+    
+    
+    private Operario getOperario(String username) {  //----
+		int i = 0;
+		Operario operario = null;
+		while (i < this.operarios.size() && !this.operarios.get(i).getUsername().equalsIgnoreCase(username))
+			i++;
+		if (i < this.operarios.size())
+			operario = this.operarios.get(i);
+		return operario;
+	}
+    
 }
