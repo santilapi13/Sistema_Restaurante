@@ -10,6 +10,7 @@ import java.util.Observer;
 
 import javax.swing.JOptionPane;
 
+import excepciones.ContrasenaIncorrectaException;
 import modelo.*;
 import vista.*;
 
@@ -44,14 +45,20 @@ public class ControladorLogin implements ActionListener, Observer {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
-		if (comando.equalsIgnoreCase("Ingresar")) {
+		
+	
 			
-			String user = this.vista.getUsername();
-			String pass = this.vista.getPassword();
-			String tipo = this.vista.getTipo();
-			Cerveceria.getInstance().loguear(user,pass,tipo);
+			if (comando.equalsIgnoreCase("Ingresar")) {
+				
+				String user = this.vista.getUsername();
+				String pass = this.vista.getPassword();
+				String tipo = this.vista.getTipo();
+				Cerveceria.getInstance().loguear(user,pass,tipo);
+				
+			} 
 			
-		} 
+			
+		
 	}
 
 	@Override
@@ -60,10 +67,17 @@ public class ControladorLogin implements ActionListener, Observer {
 			throw new InvalidParameterException();
 		if (arg.toString().contentEquals("ADMIN")) {
 			this.vista.cerrarse();
-			ControladorAdmin.getInstance().setVista(new VAdmin(Cerveceria.getInstance().getAdmin().getUsername()));
+			if (!Cerveceria.getInstance().getAdmin().isPrimera())
+			 ControladorAdmin.getInstance().setVista(new VAdmin());
+			else 
+			{
+			  ControladorAdmin.getInstance().setVista(new VContraseña());    //la primera ves obligatorio cambiar contra
+			  Cerveceria.getInstance().getAdmin().setPrimera(false);
+			}
 		} else if (arg.toString().contentEquals("OPERARIO")) {
 			this.vista.cerrarse();
-			//ControladorUsuario.getInstance().setVista(new VEmpleado(Agencia.getInstance().getUsuarioLogueado().getUsername()));
+			ControladorOperario.getInstance().setVista(new VOperario(Cerveceria.getInstance().getOperarioLogueado().getUsername()));
+		
 		} else if (arg.toString().contentEquals("INCORRECTO"))
 			JOptionPane.showMessageDialog(null, "Usuario o contrasena incorrecta");
 	}

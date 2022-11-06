@@ -554,29 +554,26 @@ public class Cerveceria extends Observable {
 		int i = 0;
 		String mensaje = "INCORRECTO";
 		if (tipo.equalsIgnoreCase("ADMIN")) {
-			if (this.getAdmin().getUsername().equalsIgnoreCase(username) && this.getAdmin().getPassword().equalsIgnoreCase(password))
+			if (this.getAdmin().getUsername().equals(username) && this.getAdmin().getPassword().equals(password))
              mensaje = "ADMIN";
 
 		} else if (tipo.equalsIgnoreCase("OPERARIO")) {
 
-			while (i < this.operarios.size() && !this.operarios.get(i).getUsername().equalsIgnoreCase(username))
+			while (i < this.operarios.size() && !this.operarios.get(i).getUsername().equals(username))
 				i++;
 			if (i < this.operarios.size() && this.operarios.get(i).getPassword().equals(password))
 				mensaje = "OPERARIO";
 
 		} 
 		
+		if (mensaje != "INCORRECTO") {
+			setOperarioLogueado(this.operarios.get(i));
+		}
+		
 		this.setChanged();
 		this.notifyObservers(mensaje);
 	}
     
-    
-    
-    public void setOperarioLogueado(String username) { //---- Solo hay un tipo (admin hay uno solo no se busca)
-		operarioLogueado = this.getOperario(username);
-			
-		
-	}
     
 
     private Operario getOperario(String username) {  //----
@@ -676,4 +673,6 @@ public class Cerveceria extends Observable {
     public void setOperarioLogueado(Operario operarioLogueado) {
         this.operarioLogueado = operarioLogueado;
     }
+    
+    
 }

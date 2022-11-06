@@ -28,22 +28,21 @@ import modelo.Producto;
 import modelo.Promocion;
 
 @SuppressWarnings("serial")
-public class VLogin extends JFrame implements KeyListener, MouseListener, IVistaLogin {
+public class VContraseña extends JFrame implements KeyListener, MouseListener, IVistaLogin {
 
 	private JPanel contentPane;
 	private JPanel panel;
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JLabel lblNewLabel;
-	private JTextField textUsername;
+	private JTextField textActual;
 	private JLabel lblNewLabel_1;
-	private JComboBox comboBox;
 	private JButton btnIngresar;
 	private JLabel lblNewLabel_2;
 	private JPasswordField textPassword;
 	private ActionListener actionListener;
 
-	public VLogin() {
+	public VContraseña() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 280, 317);
@@ -58,19 +57,19 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 
 		this.panel_2 = new JPanel();
 		this.panel.add(this.panel_2);
-		this.panel_2.setLayout(new GridLayout(5, 0, 0, 0));
+		this.panel_2.setLayout(new GridLayout(4, 0, 0, 0));
 
-		this.lblNewLabel = new JLabel("USERNAME");
+		this.lblNewLabel = new JLabel("ACTUAL");
 		this.lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		this.panel_2.add(this.lblNewLabel);
 
-		this.textUsername = new JTextField();
-		this.textUsername.addKeyListener(this);
-		this.textUsername.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		this.panel_2.add(this.textUsername);
-		this.textUsername.setColumns(10);
+		this.textActual = new JTextField();
+		this.textActual.addKeyListener(this);
+		this.textActual.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		this.panel_2.add(this.textActual);
+		this.textActual.setColumns(10);
 
-		this.lblNewLabel_1 = new JLabel("PASSWORD");
+		this.lblNewLabel_1 = new JLabel("NUEVA");
 		this.lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		this.panel_2.add(this.lblNewLabel_1);
 
@@ -78,22 +77,16 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 		this.textPassword.addKeyListener(this);
 		this.panel_2.add(this.textPassword);
 
-		this.comboBox = new JComboBox();
-		this.comboBox.addMouseListener(this);
-		this.comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		this.comboBox.setModel(new DefaultComboBoxModel(new String[] {"ADMIN", "OPERARIO"}));
-		this.panel_2.add(this.comboBox);
-
 		this.panel_1 = new JPanel();
 		this.contentPane.add(this.panel_1, BorderLayout.SOUTH);
-		this.panel_1.setLayout(new GridLayout(2, 0, 0, 0));
+		this.panel_1.setLayout(new GridLayout(1, 0, 0, 0));
 
-		this.btnIngresar = new JButton("INGRESAR");
+		this.btnIngresar = new JButton("APLICAR CAMBIOS");
 		this.btnIngresar.setEnabled(true);
-		this.btnIngresar.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		this.btnIngresar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		this.panel_1.add(this.btnIngresar);
 
-		this.lblNewLabel_2 = new JLabel("LOGIN");
+		this.lblNewLabel_2 = new JLabel("Contrase\u00F1a");
 		this.lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 20));
 		this.lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		this.contentPane.add(this.lblNewLabel_2, BorderLayout.NORTH);
@@ -108,15 +101,19 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 
 	@Override
 	public String getUsername() {
-		return this.textUsername.getText();
+		return null;
 	}
 
+	
 	@Override
 	public String getPassword() {
 		return this.textPassword.getText();
 	}
 
-
+	@Override
+	public String getTipo() {
+		return null;
+	}
 
 	
 
@@ -181,14 +178,8 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 	}
 
 	@Override
-	public String getTipo() {
-		return (String) this.comboBox.getSelectedItem();
-	}
-
-	@Override
 	public String getPasswordActual() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.textActual.getText();
 	}
 
 	@Override
@@ -268,5 +259,8 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
+	
 
 }

@@ -10,6 +10,8 @@ import java.time.DayOfWeek;
  */
 public class Admin extends Operario implements Serializable {
 
+	private boolean isPrimera = true;       //tiene q ser true, para pruebas lo deje en false
+	 
     public Admin() {
         super("ADMIN", "ADMIN", "ADMIN1234");
     }
@@ -31,6 +33,8 @@ public class Admin extends Operario implements Serializable {
         Operario operario = new Operario(nya, username, password);
         Cerveceria.getInstance().agregarOperario(operario);
     }
+    
+    
 
     /**
      * Elimina un operario de la lista de operarios de la cerveceria.<br>
@@ -211,4 +215,17 @@ public class Admin extends Operario implements Serializable {
         assert cantComensales >= 0 : "La cantidad de comensales debe ser mayor o igual a 0";
         Cerveceria.getInstance().modificarMesa(nroMesa, cantComensales);
     }
+
+	public boolean isPrimera() {
+		return isPrimera;
+	}
+
+	public void setPrimera(boolean isPrimera) {
+		this.isPrimera = isPrimera;
+	}
+    
+    
+
+    
+    
 }

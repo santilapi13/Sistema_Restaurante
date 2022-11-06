@@ -121,10 +121,15 @@ public class Operario implements Serializable {
     * <b>Post:</b> La contrasena del operario debe ser la pasada por parametro.<br>
     * @param nuevaContrasena : Es la nueva contrasena del operario.
     */
-   public void cambiarContrasena(String nuevaContrasena) {
+   public void cambiarContrasena(String nuevaContrasena, String contrasenaActual) throws ContrasenaIncorrectaException {
        assert nuevaContrasena != null : "La contrasena no puede ser nula.";
        assert nuevaContrasena.length() >= 5 : "La contrasena debe tener al menos 5 caracteres.";
-       this.password = nuevaContrasena;
+       
+       if (this.getPassword().equals(contrasenaActual))
+         this.password = nuevaContrasena;
+       else
+    	   throw new ContrasenaIncorrectaException("Contraseña invalida");
+       
        this.invariante();
     }
 
