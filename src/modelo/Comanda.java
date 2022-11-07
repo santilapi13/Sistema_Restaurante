@@ -76,4 +76,11 @@ public class Comanda implements Serializable {
     private void invariante() {
         assert !mesa.isLibre() : "La mesa debe estar ocupada mientras la comanda siga abierta.";
     }
+
+    @Override
+    public String toString() {
+        return fecha +
+                "\t mesa " + mesa +
+                "\t Lista de productos: \n" + pedidos;
+    }
 }

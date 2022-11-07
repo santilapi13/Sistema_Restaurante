@@ -38,15 +38,15 @@ public class Admin extends Operario implements Serializable {
 
     /**
      * Elimina un operario de la lista de operarios de la cerveceria.<br>
-     * <b>Pre:</b> El parametro username debe ser distinto de null.<br>
+     * <b>Pre:</b> El parametro operario debe ser distinto de null.<br>
      * <b>Post:</b> El operario debe ser eliminado de la lista de operarios de la cerveceria.<br>
      *
-     * @param username : Es el nombre de usuario con el cual el operario sera identificado en el sistema.
+     * @param operario : Es el operario a eliminar del sistema.
      * @throws OperarioInexistenteException : Se lanza si el operario no existe en la lista de operarios de la cerveceria.
      */
-    public void eliminarOperario(String username) throws OperarioInexistenteException {
-        assert username != null : "El nombre de usuario del operario a eliminar no puede ser nulo.";
-        Cerveceria.getInstance().eliminarOperario(username);
+    public void eliminarOperario(Operario operario) throws OperarioInexistenteException {
+        assert operario != null : "El operario a eliminar no puede ser nulo.";
+        Cerveceria.getInstance().eliminarOperario(operario);
     }
 
     /**
@@ -66,34 +66,34 @@ public class Admin extends Operario implements Serializable {
 
     /**
      * Elimina un producto de la carta de la cerveceria.<br>
-     * <b>Pre:</b> El parametro nombre debe ser distinto de null.<br>
+     * <b>Pre:</b> El parametro producto debe ser distinto de null.<br>
      * <b>Post:</b> El producto debe ser eliminado de la carta de la cerveceria.<br>
      *
-     * @param nombre : Es el nombre del producto a eliminar de la carta de la cerveceria.
+     * @param producto : Es el producto a eliminar de la carta de la cerveceria.
      * @throws ProductoInexistenteException : Se lanza si el producto no existe en la carta de la cerveceria.
      */
-    public void eliminarProducto(String nombre) throws ProductoInexistenteException {
-        assert nombre != null : "El nombre del producto a eliminar no puede ser nulo.";
-        Cerveceria.getInstance().eliminarProducto(nombre);
+    public void eliminarProducto(Producto producto) throws ProductoInexistenteException {
+        assert producto != null : "El producto a eliminar no puede ser nulo.";
+        Cerveceria.getInstance().eliminarProducto(producto);
     }
 
     /**
      * Actualiza un producto de la carta de la cerveceria. En caso de que un parametro sea null o -1, no lo modifica.<br>
-     * <b>Pre:</b> El parametro nombre debe ser distinto de null. Los parametros pCosto, pVenta y stock deben ser positivos o -1.<br>
+     * <b>Pre:</b> El parametro producto debe ser distinto de null. Los parametros pCosto, pVenta y stock deben ser positivos o -1.<br>
      * <b>Post:</b> Los atributos de producto deben ser actualizados con los proporcionados en los parametros.<br>
      *
-     * @param nombre : Es el nombre del producto a modificar.
+     * @param producto : Es producto a modificar.
      * @param pCosto : Es el nuevo precio de costo del producto.
      * @param pVenta : Es el nuevo precio de venta del producto.
      * @param stock : Es la nueva cantidad de unidades en stock del producto.
      * @throws ProductoInexistenteException : Se lanza si el producto no existe en la carta de la cerveceria.
      */
-    public void modificarProducto(String nombre, double pCosto, double pVenta, int stock) throws ProductoInexistenteException {
-        assert nombre != null : "El nombre del producto a modificar no puede ser nulo.";
+    public void modificarProducto(Producto producto, double pCosto, double pVenta, int stock) throws ProductoInexistenteException {
+        assert producto != null : "El producto a modificar no puede ser nulo.";
         assert pCosto > 0 || pCosto == -1 : "El precio de costo del producto debe ser -1 (no se actualiza) o positivo.";
         assert pVenta > 0 || pVenta == -1 : "El precio de venta del producto debe ser -1 (no se actualiza) o positivo.";
         assert stock > 0 || stock == -1 : "El stock del producto debe ser -1 (no se actualiza) o positivo.";
-        Cerveceria.getInstance().modificarProducto(nombre, pCosto, pVenta, stock);
+        Cerveceria.getInstance().modificarProducto(producto, pCosto, pVenta, stock);
     }
 
     /**
@@ -145,29 +145,29 @@ public class Admin extends Operario implements Serializable {
 
     /**
      * Elimina una promocion de la lista de promociones de producto.<br>
-     * <b>Pre:</b> El parametro id_promo debe ser mayor o igual a 0.<br>
+     * <b>Pre:</b> El parametro promo debe ser distinto de null.<br>
      * <b>Post:</b> Se eliminara una promocion de la lista de promociones de producto.<br>
      *
-     * @param id_promo: El id de la promocion.
+     * @param promo: La promocion a eliminar.
      * @throws PromocionInexistenteException: Se lanza si la promocion no existe.
      */
-    public void eliminarPromocion(int id_promo) throws PromocionInexistenteException {
-        assert id_promo >= 0 : "El id de la promocion debe ser mayor o igual a 0";
-        Cerveceria.getInstance().eliminarPromocion(id_promo);
+    public void eliminarPromocion(PromoProducto promo) throws PromocionInexistenteException {
+        assert promo != null : "La promocion no puede ser null";
+        Cerveceria.getInstance().eliminarPromocion(promo);
     }
 
     /**
      * Elimina una promocion de la lista de promociones temporales.<br>
-     * <b>Pre:</b> El parametro nombre debe ser distinto de null.<br>
+     * <b>Pre:</b> El parametro promo debe ser distinto de null.<br>
      * <b>Post:</b> Se eliminara una promocion de la lista de promociones temporales.<br>
      *
-     * @param nombre: El nombre de la promocion.
+     * @param promo: La promocion a eliminar.
      * @throws PromocionInexistenteException: Se lanza si la promocion no existe.
      */
-    public void eliminarPromocion(String nombre) throws PromocionInexistenteException {
-        assert nombre != null : "El nombre no puede ser null";
+    public void eliminarPromocion(PromoTemporal promo) throws PromocionInexistenteException {
+        assert promo != null : "La promocion no puede ser null";
 
-        Cerveceria.getInstance().eliminarPromocion(nombre);
+        Cerveceria.getInstance().eliminarPromocion(promo);
     }
 
     public void agregarDiaPromocion(DayOfWeek dia, String nombrePromocion) throws PromocionInexistenteException {
@@ -189,15 +189,15 @@ public class Admin extends Operario implements Serializable {
         Cerveceria.getInstance().agregarMozo(nya, cantHijos, fechaNacimiento);
     }
 
-    public void eliminarMozo(String nya) throws MozoInexistenteException {
-        assert nya != null : "El nombre y apellido no puede ser null";
-        Cerveceria.getInstance().eliminarMozo(nya);
+    public void eliminarMozo(Mozo mozo) throws MozoInexistenteException {
+        assert mozo != null : "El mozo no puede ser null";
+        Cerveceria.getInstance().eliminarMozo(mozo);
     }
 
-    public void modificarMozo(String nya, int cantHijos) throws MozoInexistenteException {
-        assert nya != null : "El nombre y apellido no puede ser null";
+    public void modificarMozo(Mozo mozo, int cantHijos) throws MozoInexistenteException {
+        assert mozo != null : "El mozo no puede ser null";
         assert cantHijos >= 0 : "La cantidad de hijos debe ser mayor o igual a 0";
-        Cerveceria.getInstance().modificarMozo(nya, cantHijos);
+        Cerveceria.getInstance().modificarMozo(mozo, cantHijos);
     }
 
     public void agregarMesa(int cantComensales) {
@@ -223,9 +223,9 @@ public class Admin extends Operario implements Serializable {
 	public void setPrimera(boolean isPrimera) {
 		this.isPrimera = isPrimera;
 	}
-    
-    
 
-    
-    
+    public void setEstadoOperario(Operario operario, boolean estado) throws OperarioInexistenteException {
+    	Cerveceria.getInstance().setEstadoOperario(operario, estado);
+    }
+
 }

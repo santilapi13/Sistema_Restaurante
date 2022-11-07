@@ -3,8 +3,12 @@ package negocio;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import excepciones.ProductoInexistenteException;
 import modelo.*;
 import vista.IVistaLogin;
+import vista.VAdmin;
+
+import javax.swing.*;
 
 public class ControladorModificaciones implements ActionListener {
 
@@ -41,12 +45,6 @@ public class ControladorModificaciones implements ActionListener {
 		this.mozo = mozo;
 	}
 	
-	public void setVista(IVistaLogin vista, Mesa mesa) {
-		this.vista = vista;
-		this.vista.setActionListener(this);
-		this.mesa = mesa;
-	}
-	
 	public void setVista(IVistaLogin vista, Promocion prom) {
 		this.vista = vista;
 		this.vista.setActionListener(this);
@@ -57,26 +55,53 @@ public class ControladorModificaciones implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
-		
-		if ((comando.equalsIgnoreCase("Aceptar") &&  prod != null))
-		{
-			   //llamar metodo modificar producto
+
+		try {
+			if (comando.equalsIgnoreCase("Aceptar")) {
+
+				if (prod != null) {		// MODIFICACION DE PRODUCTO
+					double pVenta = this.vista.pVenta();
+					double pCosto = this.vista.pCosto();
+					int stock = this.vista.stock();
+
+					if (pVenta < 0 && pVenta != -1 || pCosto < 0 && pVenta != -1 || stock < 0 && stock != -1)
+						JOptionPane.showMessageDialog(null, "No se puede ingresar valores negativos. En caso de no modificar, dejar vacio.");
+					else {
+						Cerveceria.getInstance().getAdmin().modificarProducto(prod, pCosto, pVenta, stock);
+						this.vista.cerrarse();
+						ControladorAdmin.getInstance().setVista(new VAdmin());
+					}
+					this.prod = null;
+				}
+
+				else if (op != null) {	// MODIFICACION DE OPERARIO
+					Cerveceria.getInstance().getAdmin().setEstadoOperario(op, this.vista.getEstadoOperario());
+					this.op = null;
+					this.vista.cerrarse();
+					ControladorAdmin.getInstance().setVista(new VAdmin());
+				}
+
+				else if (mozo != null) { 	// MODIFICACION DE MOZO
+					int cantHijos = this.vista.getHijos();
+					if (cantHijos > 0)
+						Cerveceria.getInstance().getAdmin().modificarMozo(mozo, cantHijos);
+					else {
+						JOptionPane.showMessageDialog(null, "Solo se admiten valores positivos para la cantidad de hijos.");
+						this.vista.cerrarse();
+						ControladorAdmin.getInstance().setVista(new VAdmin());
+					}
+					this.mozo = null;
+				}
+
+				else if (prom != null) {	// MODIFICACION DE PROMOCION
+					// TODO: MODIFICACIONES PROMOCIONES
+					this.prom = null;
+				}
+
+			}
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, ex.getMessage());
 		}
-		 else if ((comando.equalsIgnoreCase("Aceptar") &&  op != null))
-		 {
-			//Llamar metodo modificar operario 
-		 }
-		 else if ((comando.equalsIgnoreCase("Aceptar") &&  mozo != null)) {
-			//llamar metodo modificar mozo
-		 }
-		 else if ((comando.equalsIgnoreCase("Aceptar") &&  mesa != null)) {
-			//Llamar metodo modificar mesa
-		 }
-		 else if ((comando.equalsIgnoreCase("Aceptar") &&  prom != null)) {
-			//llamar metodo modificar prom
-		 }
-		
-		
 	}
 	
 }

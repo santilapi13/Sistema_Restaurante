@@ -263,4 +263,49 @@ public class VRegOp extends JFrame implements IVistaLogin {
 		return null;
 	}
 
+	@Override
+	public boolean getIsOperarioEmpty() {
+		return false;
+	}
+
+	@Override
+	public boolean getIsMesaEmpty() {
+		return false;
+	}
+
+	@Override
+	public boolean getIsMozoEmpty() {
+		return false;
+	}
+
+	@Override
+	public boolean getIsPromocionEmpty() {
+		return false;
+	}
+
+	@Override
+	public Operario getOperarioSeleccionado() {
+		return null;
+	}
+
+	@Override
+	public Mesa getMesaSeleccionada() {
+		return null;
+	}
+
+	@Override
+	public Mozo getMozoSeleccionado() {
+		return null;
+	}
+
+	@Override
+	public Promocion getPromocionSeleccionada() {
+		return null;
+	}
+
+	@Override
+	public boolean getEstadoOperario() {
+		return this.rdbtnActivo.isSelected();
+	}
+
 }

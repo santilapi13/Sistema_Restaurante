@@ -1,7 +1,5 @@
 package vista;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -21,13 +19,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
 import javax.swing.JSpinner;
 import javax.swing.JButton;
 import javax.swing.SpinnerNumberModel;
 import java.awt.Color;
 
-public class VRegMozo extends JFrame implements IVistaLogin {
+public class VMozo extends JFrame implements IVistaLogin {
 
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -44,7 +41,7 @@ public class VRegMozo extends JFrame implements IVistaLogin {
 	/**
 	 * Create the frame.
 	 */
-	public VRegMozo() {
+	public VMozo() {
 		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 383, 467);

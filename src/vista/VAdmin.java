@@ -329,7 +329,8 @@ public class VAdmin extends JFrame implements IVistaLogin {
 	public String fecha() {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}
+
 		public void ActualizarMozos(ArrayList<Mozo> mozos) {
 				this.modeloMozo.removeAllElements();
 			
@@ -401,6 +402,50 @@ public class VAdmin extends JFrame implements IVistaLogin {
 			return this.listProductos.getSelectedValue();
 		}
 
-		
-	
+	@Override
+	public boolean getIsOperarioEmpty() {
+		return this.listOperarios.isSelectionEmpty();
+	}
+
+	@Override
+	public boolean getIsMesaEmpty() {
+		return this.listMesas.isSelectionEmpty();
+	}
+
+	@Override
+	public boolean getIsMozoEmpty() {
+		return this.listMozos.isSelectionEmpty();
+	}
+
+	@Override
+	public boolean getIsPromocionEmpty() {
+		return this.listPromociones.isSelectionEmpty();
+	}
+
+	@Override
+	public Operario getOperarioSeleccionado() {
+		return this.listOperarios.getSelectedValue();
+	}
+
+	@Override
+	public Mesa getMesaSeleccionada() {
+		return this.listMesas.getSelectedValue();
+	}
+
+	@Override
+	public Mozo getMozoSeleccionado() {
+		return this.listMozos.getSelectedValue();
+	}
+
+	@Override
+	public Promocion getPromocionSeleccionada() {
+		return this.listPromociones.getSelectedValue();
+	}
+
+	@Override
+	public boolean getEstadoOperario() {
+		return false;
+	}
+
+
 }

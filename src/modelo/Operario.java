@@ -128,7 +128,7 @@ public class Operario implements Serializable {
        if (this.getPassword().equals(contrasenaActual))
          this.password = nuevaContrasena;
        else
-    	   throw new ContrasenaIncorrectaException("Contraseña invalida");
+    	   throw new ContrasenaIncorrectaException("Contraseï¿½a invalida");
        
        this.invariante();
     }
@@ -163,5 +163,12 @@ public class Operario implements Serializable {
 
    public void setUsername(String username) {
       this.username = username;
+   }
+
+   @Override
+   public String toString() {
+      return "Operario " + nya + '\n' +
+              ", username: '" + username + '\n' +
+              ", activo :" + activo;
    }
 }

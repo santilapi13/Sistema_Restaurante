@@ -16,7 +16,7 @@ import vista.*;
 
 @SuppressWarnings("deprecation")
 public class ControladorLogin implements ActionListener, Observer {
-	
+
 	private IVistaLogin vista = null;
 	private static ControladorLogin instance = null;
 
@@ -26,7 +26,7 @@ public class ControladorLogin implements ActionListener, Observer {
 		this.vista.setActionListener(this);
 		Cerveceria.getInstance().addObserver(this);
 	}
-	
+
 	public static ControladorLogin getInstance() {
 		if (instance == null)
 			instance = new ControladorLogin();
@@ -45,20 +45,14 @@ public class ControladorLogin implements ActionListener, Observer {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
-		
-	
-			
-			if (comando.equalsIgnoreCase("Ingresar")) {
-				
-				String user = this.vista.getUsername();
-				String pass = this.vista.getPassword();
-				String tipo = this.vista.getTipo();
-				Cerveceria.getInstance().loguear(user,pass,tipo);
-				
-			} 
-			
-			
-		
+
+		if (comando.equalsIgnoreCase("Ingresar")) {
+			String user = this.vista.getUsername();
+			String pass = this.vista.getPassword();
+			String tipo = this.vista.getTipo();
+			Cerveceria.getInstance().loguear(user,pass,tipo);
+		}
+
 	}
 
 	@Override
@@ -68,16 +62,16 @@ public class ControladorLogin implements ActionListener, Observer {
 		if (arg.toString().contentEquals("ADMIN")) {
 			this.vista.cerrarse();
 			if (!Cerveceria.getInstance().getAdmin().isPrimera())
-			 ControladorAdmin.getInstance().setVista(new VAdmin());
-			else 
+				ControladorAdmin.getInstance().setVista(new VAdmin());
+			else
 			{
-			  ControladorAdmin.getInstance().setVista(new VContraseña());    //la primera ves obligatorio cambiar contra
-			  Cerveceria.getInstance().getAdmin().setPrimera(false);
+				ControladorAdmin.getInstance().setVista(new VContrasena());    //la primera ves obligatorio cambiar contra
+				Cerveceria.getInstance().getAdmin().setPrimera(false);
 			}
 		} else if (arg.toString().contentEquals("OPERARIO")) {
 			this.vista.cerrarse();
 			ControladorOperario.getInstance().setVista(new VOperario(Cerveceria.getInstance().getOperarioLogueado().getUsername()));
-		
+
 		} else if (arg.toString().contentEquals("INCORRECTO"))
 			JOptionPane.showMessageDialog(null, "Usuario o contrasena incorrecta");
 	}

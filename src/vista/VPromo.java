@@ -1,5 +1,7 @@
 package vista;
 
+import modelo.*;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -14,10 +16,11 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
-
-public class VPromo extends JFrame {
+public class VPromo extends JFrame implements IVistaLogin {
 	
 	private JPanel contentPane;
 	private JTextField textNombre;
@@ -189,4 +192,143 @@ public class VPromo extends JFrame {
 		
 	}
 
+	@Override
+	public void setActionListener(ActionListener actionListener) {
+
+	}
+
+	@Override
+	public void cerrarse() {
+
+	}
+
+	@Override
+	public String getUsername() {
+		return null;
+	}
+
+	@Override
+	public String getPassword() {
+		return null;
+	}
+
+	@Override
+	public String getTipo() {
+		return null;
+	}
+
+	@Override
+	public String getPasswordActual() {
+		return null;
+	}
+
+	@Override
+	public String getNya() {
+		return null;
+	}
+
+	@Override
+	public int getHijos() {
+		return 0;
+	}
+
+	@Override
+	public String fecha() {
+		return null;
+	}
+
+	@Override
+	public int getComensales() {
+		return 0;
+	}
+
+	@Override
+	public double pCosto() {
+		return 0;
+	}
+
+	@Override
+	public double pVenta() {
+		return 0;
+	}
+
+	@Override
+	public int stock() {
+		return 0;
+	}
+
+	@Override
+	public void ActualizarListaOperarios(ArrayList<Operario> operarios) {
+
+	}
+
+	@Override
+	public void ActualizarMozos(ArrayList<Mozo> mozos) {
+
+	}
+
+	@Override
+	public void ActualizarMesas(ArrayList<Mesa> mesas) {
+
+	}
+
+	@Override
+	public void ActualizarPromociones(ArrayList<Promocion> promociones) {
+
+	}
+
+	@Override
+	public void ActualizarProductos(ArrayList<Producto> productos) {
+
+	}
+
+	@Override
+	public boolean getIsProductoEmpty() {
+		return false;
+	}
+
+	@Override
+	public Producto getProdSeleccionado() {
+		return null;
+	}
+
+	@Override
+	public boolean getIsOperarioEmpty() {
+		return false;
+	}
+
+	@Override
+	public boolean getIsMesaEmpty() {
+		return false;
+	}
+
+	@Override
+	public boolean getIsMozoEmpty() {
+		return false;
+	}
+
+	@Override
+	public boolean getIsPromocionEmpty() {
+		return false;
+	}
+
+	@Override
+	public Operario getOperarioSeleccionado() {
+		return null;
+	}
+
+	@Override
+	public Mesa getMesaSeleccionada() {
+		return null;
+	}
+
+	@Override
+	public Mozo getMozoSeleccionado() {
+		return null;
+	}
+
+	@Override
+	public Promocion getPromocionSeleccionada() {
+		return null;
+	}
 }

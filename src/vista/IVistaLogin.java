@@ -46,7 +46,22 @@ public interface IVistaLogin {
 	public boolean getIsProductoEmpty();
 	
 	public Producto getProdSeleccionado();
-	
 
-	
+	public boolean getIsOperarioEmpty();
+
+	public boolean getIsMesaEmpty();
+
+	public boolean getIsMozoEmpty();
+
+	public boolean getIsPromocionEmpty();
+
+	public Operario getOperarioSeleccionado();
+
+	public Mesa getMesaSeleccionada();
+
+	public Mozo getMozoSeleccionado();
+
+	public Promocion getPromocionSeleccionada();
+
+	public boolean getEstadoOperario();
 }

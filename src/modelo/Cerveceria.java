@@ -208,22 +208,22 @@ public class Cerveceria extends Observable {
     }
 
     /**
-     * Eliminar un operario de la lista de operarios.<br>
-     * <b>Pre:</b> El parametro username debe ser distinto de null.<br>
-     * <b>Post:</b> Se eliminara un operario de la lista de operarios.<br>
+     * Elimina un operario de la lista de operarios de la cerveceria.<br>
+     * <b>Pre:</b> El parametro operario debe ser distinto de null.<br>
+     * <b>Post:</b> El operario debe ser eliminado de la lista de operarios de la cerveceria.<br>
      *
-     * @param username : El username del operario a eliminar.
-     * @throws OperarioInexistenteException : Se lanza si el operario no existe.
+     * @param operario : Es el operario a eliminar del sistema.
+     * @throws OperarioInexistenteException : Se lanza si el operario no existe en la lista de operarios de la cerveceria.
      */
-    public void eliminarOperario(String username) throws OperarioInexistenteException{
-        int i = 0;
-        while (i < operarios.size() && !operarios.get(i).getUsername().equalsIgnoreCase(username))
-            i++;
+    public void eliminarOperario(Operario operario) throws OperarioInexistenteException{
 
-        if (i < operarios.size() && operarios.get(i).getUsername().equalsIgnoreCase(username))
-            operarios.remove(i);
+        assert operario != null : "El operario no puede ser null";
+
+        if (operarios.contains(operario))
+            operarios.remove(operario);
         else
-            throw new OperarioInexistenteException(username);
+            throw new OperarioInexistenteException(operario.getUsername());
+
         this.invariante();
     }
 
@@ -248,45 +248,39 @@ public class Cerveceria extends Observable {
 
     /**
      * Eliminar un producto de la lista de productos.<br>
-     * <b>Pre:</b> El parametro nombre debe ser distinto de null.<br>
+     * <b>Pre:</b> El parametro producto debe ser distinto de null.<br>
      * <b>Post:</b> Se eliminara un producto de la lista de productos.<br>
-     * @param nombre : El nombre del producto a eliminar.
+     * @param producto : El producto a eliminar.
      * @throws ProductoInexistenteException : Se lanza si el producto no existe.
      */
-    public void eliminarProducto(String nombre) throws ProductoInexistenteException{
-        assert nombre != null : "El nombre no puede ser null";
-        int i = 0;
-        while (i < carta.size() && !carta.get(i).getNombre().equalsIgnoreCase(nombre))
-            i++;
+    public void eliminarProducto(Producto producto) throws ProductoInexistenteException{
+        assert producto != null : "El producto no puede ser null";
 
-        if (i < carta.size() && carta.get(i).getNombre().equalsIgnoreCase(nombre))
-            carta.remove(i);
+        if (carta.contains(producto))
+            carta.remove(producto);
         else
-            throw new ProductoInexistenteException(nombre);
+            throw new ProductoInexistenteException(producto.getNombre());
+
         this.invariante();
     }
 
     /**
      * Actualiza los atributos de un producto de la lista de productos. En caso de que un parametro sea null o -1, no lo modifica.<br>
-     * <b>Pre:</b> El parametro nombre debe ser distinto de null. Los parametros pCosto, pVenta y stock deben ser positivos o -1.<br>
+     * <b>Pre:</b> El parametro producto debe ser distinto de null. Los parametros pCosto, pVenta y stock deben ser positivos o -1.<br>
      * <b>Post:</b> Se actualizara un producto de la lista de productos.<br>
      *
-     * @param nombre : El nombre del producto a modificar.
+     * @param producto : El producto a modificar.
      * @param pCosto : El nuevo precio de costo.
      * @param pVenta : El nuevo precio de venta.
      * @param stock : El nuevo stock.
      */
-    public void modificarProducto(String nombre, double pCosto, double pVenta, int stock) throws ProductoInexistenteException {
-        assert nombre != null : "El nombre no puede ser null";
+    public void modificarProducto(Producto producto, double pCosto, double pVenta, int stock) throws ProductoInexistenteException {
+        assert producto != null : "El producto no puede ser null";
         assert pCosto > 0 || pCosto == -1 : "El precio de costo debe ser positivo o -1";
         assert pVenta > 0 || pVenta == -1 : "El precio de venta debe ser positivo o -1";
         assert stock > 0 || stock == -1 : "El stock debe ser positivo o -1";
-
-        int i = 0;
-        while (i < carta.size() && !carta.get(i).getNombre().equalsIgnoreCase(nombre))
-            i++;
-
-        if (i < carta.size() && carta.get(i).getNombre().equalsIgnoreCase(nombre)) {
+        if (carta.contains(producto)) {
+            int i = carta.indexOf(producto);
             if (pCosto > 0)
                 carta.get(i).setpCosto(pCosto);
             if (pVenta > 0)
@@ -294,7 +288,7 @@ public class Cerveceria extends Observable {
             if (stock > 0)
                 carta.get(i).setStock(stock);
         } else
-            throw new ProductoInexistenteException(nombre);
+            throw new ProductoInexistenteException(producto.getNombre());
         this.invariante();
     }
 
@@ -367,45 +361,38 @@ public class Cerveceria extends Observable {
 
     /**
      * Elimina una promocion de la lista de promociones de producto.<br>
-     * <b>Pre:</b> El parametro id_promo debe ser mayor o igual a 0.<br>
+     * <b>Pre:</b> El parametro promo debe ser distinto de null.<br>
      * <b>Post:</b> Se eliminara una promocion de la lista de promociones de producto.<br>
      *
-     * @param id_promo: El id de la promocion.
+     * @param promo: La promocion a eliminar.
      * @throws PromocionInexistenteException: Se lanza si la promocion no existe.
      */
-    public void eliminarPromocion(int id_promo) throws PromocionInexistenteException {
-        assert id_promo >= 0 : "El id de la promocion debe ser mayor o igual a 0";
-        int i = 0;
-        while (i < promosProductos.size() && promosProductos.get(i).getId_promo() != id_promo)
-            i++;
+    public void eliminarPromocion(PromoProducto promo) throws PromocionInexistenteException {
+        assert promo != null : "promo debe ser distinto de null";
 
-        if (i < promosProductos.size() && promosProductos.get(i).getId_promo() == id_promo)
-            promosProductos.remove(i);
+        if (promosProductos.contains(promo))
+            promosProductos.remove(promo);
         else
-            throw new PromocionInexistenteException(String.valueOf(id_promo));
+            throw new PromocionInexistenteException(String.valueOf(promo.getId_promo()));
 
         this.invariante();
     }
 
     /**
      * Elimina una promocion de la lista de promociones temporales.<br>
-     * <b>Pre:</b> El parametro nombre debe ser distinto de null.<br>
+     * <b>Pre:</b> El parametro promo debe ser distinto de null.<br>
      * <b>Post:</b> Se eliminara una promocion de la lista de promociones temporales.<br>
      *
-     * @param nombre: El nombre de la promocion.
+     * @param promo: La promocion a eliminar.
      * @throws PromocionInexistenteException: Se lanza si la promocion no existe.
      */
-    public void eliminarPromocion(String nombre) throws PromocionInexistenteException {
-        assert nombre != null : "El nombre no puede ser null";
+    public void eliminarPromocion(PromoTemporal promo) throws PromocionInexistenteException {
+        assert promo != null : "La promocion no puede ser null";
 
-        int i = 0;
-        while (i < promosTemporales.size() && !promosTemporales.get(i).getNombre().equalsIgnoreCase(nombre))
-            i++;
-
-        if (i < promosTemporales.size() && promosTemporales.get(i).getNombre().equalsIgnoreCase(nombre))
-            promosTemporales.remove(i);
+        if (promosTemporales.contains(promo))
+            promosTemporales.remove(promo);
         else
-            throw new PromocionInexistenteException(nombre);
+            throw new PromocionInexistenteException(promo.getNombre());
 
         this.invariante();
     }
@@ -487,14 +474,13 @@ public class Cerveceria extends Observable {
         return administrador;
     }
 
-    public void eliminarMozo(String nya) throws MozoInexistenteException {
-        int i = 0;
-        while (i < mozos.size() && !mozos.get(i).getNya().equalsIgnoreCase(nya))
-            i++;
-        if (i < mozos.size() && mozos.get(i).getNya().equalsIgnoreCase(nya))
-            mozos.remove(i);
+    public void eliminarMozo(Mozo mozo) throws MozoInexistenteException {
+        assert mozo != null : "El mozo no puede ser null";
+
+        if (mozos.contains(mozo))
+            mozos.remove(mozo);
         else
-            throw new MozoInexistenteException(nya);
+            throw new MozoInexistenteException(mozo.getNya());
     }
 
     public void agregarMozo(String nya, int cantHijos, String fechaNacimiento) throws MozoRepetidoException {
@@ -507,14 +493,11 @@ public class Cerveceria extends Observable {
             mozos.add(new Mozo(nya, cantHijos, fechaNacimiento));
     }
 
-    public void modificarMozo(String nya, int cantHijos) throws MozoInexistenteException {
-        int i = 0;
-        while (i < mozos.size() && !mozos.get(i).getNya().equalsIgnoreCase(nya))
-            i++;
-        if (i < mozos.size() && mozos.get(i).getNya().equalsIgnoreCase(nya))
-            mozos.get(i).setCantHijos(cantHijos);
+    public void modificarMozo(Mozo mozo, int cantHijos) throws MozoInexistenteException {
+        if (mozos.contains(mozo))
+            mozos.get(mozos.indexOf(mozo)).setCantHijos(cantHijos);
         else
-            throw new MozoInexistenteException(nya);
+            throw new MozoInexistenteException(mozo.getNya());
     }
 
     public void agregarMesa(int cantComensales) {
@@ -553,9 +536,10 @@ public class Cerveceria extends Observable {
     public void loguear(String username, String password, String tipo) {   //----
 		int i = 0;
 		String mensaje = "INCORRECTO";
+
 		if (tipo.equalsIgnoreCase("ADMIN")) {
 			if (this.getAdmin().getUsername().equals(username) && this.getAdmin().getPassword().equals(password))
-             mensaje = "ADMIN";
+                mensaje = "ADMIN";
 
 		} else if (tipo.equalsIgnoreCase("OPERARIO")) {
 
@@ -567,7 +551,10 @@ public class Cerveceria extends Observable {
 		} 
 		
 		if (mensaje != "INCORRECTO") {
-			setOperarioLogueado(this.operarios.get(i));
+            if (mensaje == "OPERARIO")
+			    setOperarioLogueado(this.operarios.get(i));
+            else
+                setOperarioLogueado(this.getAdmin());
 		}
 		
 		this.setChanged();
@@ -673,6 +660,12 @@ public class Cerveceria extends Observable {
     public void setOperarioLogueado(Operario operarioLogueado) {
         this.operarioLogueado = operarioLogueado;
     }
-    
-    
+
+
+    public void setEstadoOperario(Operario operario, boolean estado) throws OperarioInexistenteException {
+        if (operarios.contains(operario)) {
+            operarios.get(operarios.indexOf(operario)).setActivo(estado);
+        } else
+            throw new OperarioInexistenteException(operario.getUsername());
+    }
 }

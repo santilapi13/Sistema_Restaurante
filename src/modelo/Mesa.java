@@ -70,4 +70,12 @@ public class Mesa implements Serializable {
     public void setNroMesa(int nroMesa) {
         this.nroMesa = nroMesa;
     }
+
+    @Override
+    public String toString() {
+        return "Mesa N° " + nroMesa +
+                "\t Capacidad: " + cantComensales +
+                "\t Asignada: " + asignada +
+                "\t Libre: " + libre;
+    }
 }

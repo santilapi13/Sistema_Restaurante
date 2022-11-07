@@ -113,4 +113,14 @@ public class Mozo implements Serializable {
     public void setVentas(ArrayList<Venta> ventas) {
         this.ventas = ventas;
     }
+
+    @Override
+    public String toString() {
+        return nya +
+                "\t Fecha de nacimiento=" + fechaNacimiento +
+                "\t Hijos: " + cantHijos +
+                "\t Mesas: \n" + mesas +
+                "\t Ventas: \n" + ventas +
+                "\t Estado: " + estado;
+    }
 }

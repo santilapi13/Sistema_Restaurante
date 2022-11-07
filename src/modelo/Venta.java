@@ -61,5 +61,13 @@ public class Venta implements Serializable {
     public void setPromosAplicadas(ArrayList<Promocion> promosAplicadas) {
         this.promosAplicadas = promosAplicadas;
     }
+
+    @Override
+    public String toString() {
+        return "Total: $" + total +
+                "\t Forma de pago: " + formaPago +
+                "\t Comanda: \n" + comanda +
+                "\t\n PromosAplicadas: \n" + promosAplicadas;
+    }
 }
 

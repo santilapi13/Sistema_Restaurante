@@ -49,4 +49,11 @@ public class Pedido implements Serializable {
     public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
+
+    @Override
+    public String toString() {
+        return producto +
+                "\t Cantidad: " + cantidad +
+                "\t Fecha: " + fecha;
+    }
 }

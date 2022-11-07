@@ -94,4 +94,12 @@ public class Producto implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        return nombre + '\t' +
+                "Costo: $" + pCosto + '\t' +
+                "Precio venta: $" + pVenta + '\t' +
+                "Stock: " + stock;
+    }
 }

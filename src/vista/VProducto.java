@@ -165,19 +165,28 @@ public class VProducto extends JFrame implements IVistaLogin{
 
 	@Override
 	public double pCosto() {
-		return Double.parseDouble(this.textCosto.getText());
+		if (this.textCosto.getText().equals(""))
+			return -1;
+		else
+			return Double.parseDouble(this.textCosto.getText());
 	}
 
 	@Override
 	public double pVenta() {
-		return Double.parseDouble(this.textVenta.getText());
+		if (this.textCosto.getText().equals(""))
+			return -1;
+		else
+			return Double.parseDouble(this.textVenta.getText());
 		
 	}
 
 	@Override
 	public int stock() {
 		String text = this.textFieldStock.getText();
-		return Integer.parseInt(text);
+		if (text.equals(""))
+			return -1;
+		else
+			return Integer.parseInt(text);
 	}
 
 	@Override
@@ -221,7 +230,46 @@ public class VProducto extends JFrame implements IVistaLogin{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
+	@Override
+	public boolean getIsOperarioEmpty() {
+		return false;
+	}
+
+	@Override
+	public boolean getIsMesaEmpty() {
+		return false;
+	}
+
+	@Override
+	public boolean getIsMozoEmpty() {
+		return false;
+	}
+
+	@Override
+	public boolean getIsPromocionEmpty() {
+		return false;
+	}
+
+	@Override
+	public Operario getOperarioSeleccionado() {
+		return null;
+	}
+
+	@Override
+	public Mesa getMesaSeleccionada() {
+		return null;
+	}
+
+	@Override
+	public Mozo getMozoSeleccionado() {
+		return null;
+	}
+
+	@Override
+	public Promocion getPromocionSeleccionada() {
+		return null;
+	}
+
 
 }
