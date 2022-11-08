@@ -547,4 +547,10 @@ public class VAdmin extends JFrame implements IVistaLogin {
 
     }
 
+	@Override
+	public void estadisticas(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

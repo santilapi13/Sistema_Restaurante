@@ -95,7 +95,10 @@ public class Mozo implements Serializable {
     }
 
     public double promedioVentas() {
-        return totalVentas() / cantVentas();
+       double x = 0;
+    	if (cantVentas() != 0)
+         x = totalVentas() / cantVentas();
+        return x;	
     }
 
     public void setNya(String nya) {

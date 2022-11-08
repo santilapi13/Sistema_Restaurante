@@ -100,4 +100,6 @@ public interface IVistaLogin {
 
 	public void deseleccionarTodo();
 	
+	public void estadisticas(String s);
+	
 }

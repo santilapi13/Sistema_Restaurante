@@ -427,6 +427,12 @@ public class VContrasena extends JFrame implements KeyListener, MouseListener, I
 		
 	}
 
+	@Override
+	public void estadisticas(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 

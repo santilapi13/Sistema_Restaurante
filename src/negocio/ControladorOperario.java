@@ -33,7 +33,7 @@ public class ControladorOperario implements ActionListener {
         this.vista.ActualizarMesas(Cerveceria.getInstance().getMesas());
         this.vista.ActualizarMozos(Cerveceria.getInstance().getMozos());
         this.vista.ActualizarComandas(Cerveceria.getInstance().getComandasAbiertas());
-        this.vista.ActualizarVentas(Cerveceria.getInstance().getVentas());
+   
     }
 
 
@@ -55,7 +55,8 @@ public class ControladorOperario implements ActionListener {
             } else if (comando.equalsIgnoreCase("APLICAR") && !this.vista.getIsMozoEmpty()) {
                 EstadoMozo estado = this.vista.getEstadoMozo();
                 String nya = this.vista.getMozoSeleccionado().getNya();
-
+             
+                
                 Cerveceria.getInstance().getOperarioLogueado().setEstado(nya, estado);
                 this.vista.ActualizarMozos(Cerveceria.getInstance().getMozos());
             } else if (comando.equalsIgnoreCase("ASIGNAR") && !this.vista.getIsMozoEmpty() && !this.vista.getIsMesaEmpty()) {
@@ -80,8 +81,17 @@ public class ControladorOperario implements ActionListener {
                 this.vista.ActualizarMozos(Cerveceria.getInstance().getMozos());
                 this.vista.ActualizarMesas(Cerveceria.getInstance().getMesas());
                 this.vista.ActualizarComandas(Cerveceria.getInstance().getComandasAbiertas());
-                this.vista.ActualizarVentas(Cerveceria.getInstance().getVentas());
-            } else if (comando.equalsIgnoreCase("SALIR")) {
+                
+            } else if ((comando.equalsIgnoreCase("Estadistica Mozo") && !this.vista.getIsMozoEmpty())) {
+            	Mozo mozo = this.vista.getMozoSeleccionado();
+            	System.out.println("sssssss");
+            	this.vista.ActualizarVentas(mozo.getVentas());
+            	
+            	String s = mozo.getNya() + "Cantidad de Ventas: "+ mozo.cantVentas()+ "  Total ventas:  " + mozo.totalVentas() + " Promedio ventas: " + mozo.promedioVentas();
+            	this.vista.estadisticas(s);
+            }
+            
+             else if (comando.equalsIgnoreCase("SALIR")) {
                 this.vista.cerrarse();
                 ControladorLogin.getInstance().setVista(new VLogin());
             }

@@ -472,5 +472,11 @@ public class VPromoTemp extends JFrame implements IVistaLogin {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void estadisticas(String s) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 

@@ -440,4 +440,10 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 		
 	}
 
+	@Override
+	public void estadisticas(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -24,6 +24,7 @@ import javax.swing.border.LineBorder;
 import modelo.*;
 
 import java.awt.Color;
+import javax.swing.JTextArea;
 
 public class VOperario extends JFrame implements IVistaLogin {
 
@@ -33,6 +34,8 @@ public class VOperario extends JFrame implements IVistaLogin {
 	private JPanel panel_2;
 	private JLabel lblNewLabel;
 	private JScrollPane scrollPane;
+	private JScrollPane scrollPane3;
+	private JScrollPane scrollPane2;
 	private JList<Mozo> listMozos;
 	private JPanel panel_3;
 	private JLabel lblNewLabel_1;
@@ -53,8 +56,6 @@ public class VOperario extends JFrame implements IVistaLogin {
 	private JPanel panel_8;
 	private JPanel panel_9;
 	private JLabel lblNewLabel_4;
-	private JScrollPane scrollPane_3;
-	private JList<Venta> listVentas;
 	private JPanel panel_10;
 	private JLabel lblNewLabel_5;
 	private JComboBox comboBoxEstado;
@@ -69,6 +70,11 @@ public class VOperario extends JFrame implements IVistaLogin {
 	private DefaultListModel<Venta> modeloVenta = new DefaultListModel<Venta>();
 	private DefaultListModel<Mozo> modeloMozo = new DefaultListModel<Mozo>();
 	private DefaultListModel<Mesa> modeloMesa = new DefaultListModel<Mesa>();
+	private JPanel panel_12;
+	private JList<Venta> listVentas;
+	private JPanel panel_13;
+	private JTextArea textArea;
+	private JButton btnEstadistica;
 	
 	/**
 	 * Create the frame.
@@ -196,16 +202,21 @@ public class VOperario extends JFrame implements IVistaLogin {
 		panel_8.add(panel_9);
 		panel_9.setLayout(new BorderLayout(0, 0));
 		
-		lblNewLabel_4 = new JLabel("VENTAS");
+		lblNewLabel_4 = new JLabel("Estadisticas Mozo");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_9.add(lblNewLabel_4, BorderLayout.NORTH);
 		
-		scrollPane_3 = new JScrollPane();
-		panel_9.add(scrollPane_3, BorderLayout.CENTER);
+		panel_12 = new JPanel();
+		panel_9.add(panel_12, BorderLayout.CENTER);
+		panel_12.setLayout(new GridLayout(2, 0, 0, 0));
+		
+		
+		this.scrollPane3 = new JScrollPane();
+		this.panel_12.add(this.scrollPane3, BorderLayout.CENTER);
 		
 		this.listVentas = new JList();
-		this.scrollPane_3.setViewportView(this.listVentas);
+		this.scrollPane3.setViewportView(this.listVentas);
 		
 		panel_11 = new JPanel();
 		contentPane.add(panel_11);
@@ -223,12 +234,23 @@ public class VOperario extends JFrame implements IVistaLogin {
 		lblNewLabel_6.setBackground(Color.WHITE);
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_11.add(lblNewLabel_6);
-		
-		
-		this.listVentas.setModel(modeloVenta);
 		this.listMozos.setModel(modeloMozo);
 		this.listMesas.setModel(modeloMesa);
 		this.listComandas.setModel(modeloComanda);
+		this.listVentas.setModel(modeloVenta);
+		
+		panel_13 = new JPanel();
+		panel_12.add(panel_13);
+		panel_13.setLayout(new BorderLayout(0, 0));
+		
+		textArea = new JTextArea();
+		this.scrollPane2 = new JScrollPane();
+		
+		panel_13.add(this.scrollPane2, BorderLayout.CENTER);
+		this.scrollPane2.setViewportView(this.textArea);
+		
+		btnEstadistica = new JButton("Estadistica Mozo");
+		panel_13.add(btnEstadistica, BorderLayout.SOUTH);
 		
 		this.setVisible(true);
 	}
@@ -241,7 +263,7 @@ public class VOperario extends JFrame implements IVistaLogin {
 		this.btnContrasena.addActionListener(actionListener);
 		this.btnPedido.addActionListener(actionListener);
 		this.btnCerrarmesa.addActionListener(actionListener);
-		
+		this.btnEstadistica.addActionListener(actionListener);
 		
 		this.actionListener = actionListener;
 	}
@@ -339,6 +361,8 @@ public class VOperario extends JFrame implements IVistaLogin {
 			this.modeloVenta.addElement(vAct);
 		this.validate();
 	
+		
+		
 	}
 
 
@@ -536,11 +560,11 @@ public class VOperario extends JFrame implements IVistaLogin {
 	}
 	
 	public EstadoMozo getEstadoMozo() {
-		String text = (String) this.comboBoxPago.getSelectedItem();
+		String text = (String) this.comboBoxEstado.getSelectedItem();
 		
 		EstadoMozo e = null;
 		
-		if (text.equalsIgnoreCase("ACIVO"))
+		if (text.equalsIgnoreCase("ACTIVO"))
 			e = EstadoMozo.ACTIVO;
 		else if (text.equalsIgnoreCase("FRANCO")) 
 			e = EstadoMozo.FRANCO;
@@ -589,6 +613,13 @@ public class VOperario extends JFrame implements IVistaLogin {
 	@Override
 	public void ActualizarPedidos(ArrayList<Pedido> pedidos) {
 		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void estadisticas(String s) {
+		this.textArea.append(s);
 		
 	}
 
