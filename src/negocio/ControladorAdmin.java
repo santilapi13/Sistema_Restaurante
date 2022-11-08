@@ -2,10 +2,12 @@ package negocio;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.DayOfWeek;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import modelo.Cerveceria;
+import modelo.*;
 import vista.*;
 
 public class ControladorAdmin  implements ActionListener {
@@ -30,6 +32,7 @@ public class ControladorAdmin  implements ActionListener {
 		this.vista.ActualizarMozos(Cerveceria.getInstance().getMozos());
 		this.vista.ActualizarMesas(Cerveceria.getInstance().getMesas());
 		this.vista.ActualizarProductos(Cerveceria.getInstance().getCarta());
+		this.vista.ActualizarPromociones(Cerveceria.getInstance().getPromosProductos(), Cerveceria.getInstance().getPromosTemporales());
 	}
 	
 	public void setVista(IVistaLogin vista) {
@@ -39,6 +42,7 @@ public class ControladorAdmin  implements ActionListener {
 		this.vista.ActualizarMozos(Cerveceria.getInstance().getMozos());
 		this.vista.ActualizarMesas(Cerveceria.getInstance().getMesas());
 		this.vista.ActualizarProductos(Cerveceria.getInstance().getCarta());
+		this.vista.ActualizarPromociones(Cerveceria.getInstance().getPromosProductos(), Cerveceria.getInstance().getPromosTemporales());
 	}
 	
 	
@@ -49,24 +53,8 @@ public class ControladorAdmin  implements ActionListener {
 
 		try {
 
-			if (comando.equalsIgnoreCase("MODIFICAR") || comando.equalsIgnoreCase("ELIMINAR")) {
-				int opcionesSeleccionadas = 0;
-				if (!this.vista.getIsProductoEmpty())
-					opcionesSeleccionadas++;
-				if (!this.vista.getIsMozoEmpty())
-					opcionesSeleccionadas++;
-				if (!this.vista.getIsOperarioEmpty())
-					opcionesSeleccionadas++;
-				if (!this.vista.getIsMesaEmpty())
-					opcionesSeleccionadas++;
-				if (!this.vista.getIsPromocionEmpty())
-					opcionesSeleccionadas++;
 
-				if (opcionesSeleccionadas != 1)
-					JOptionPane.showMessageDialog(null, "Debe seleccionar un solo elemento de una unica lista.");
-			}
-
-		  	else if (comando.equalsIgnoreCase("CONTRASENA")) {	// Abre ventana de cambiar contrasena
+		  	if (comando.equalsIgnoreCase("CONTRASENA")) {	// Abre ventana de cambiar contrasena
 				this.vista.cerrarse();
 				ControladorAdmin.getInstance().setVista(new VContrasena());
 			  }
@@ -97,9 +85,13 @@ public class ControladorAdmin  implements ActionListener {
 				this.vista.cerrarse();
 				ControladorAdmin.getInstance().setVista(new VProducto(), "RegistroProd");
 			}
-			else if (comando.equalsIgnoreCase("AGREGAR PROMOCION")) {		// Abre la ventana de agregar promocion
+			else if (comando.equalsIgnoreCase("AGREGAR PROMO PROD")) {		// Abre la ventana de agregar promocion
 				this.vista.cerrarse();
-				ControladorAdmin.getInstance().setVista(new VPromo(), "RegistroProm");
+				ControladorAdmin.getInstance().setVista(new VPromoProd(), "RegistroPromoProd");
+			}
+			else if (comando.equalsIgnoreCase("AGREGAR PROMO TEMP")) {		// Abre la ventana de agregar promocion
+				this.vista.cerrarse();
+				ControladorAdmin.getInstance().setVista(new VPromoTemp(), "RegistroPromoTemp");
 			}
 
 		  	else if (comando.equalsIgnoreCase("ACEPTAR")) {		// Agregar un nuevo operario, mozo, producto o promocion
@@ -134,12 +126,54 @@ public class ControladorAdmin  implements ActionListener {
 						ControladorAdmin.getInstance().setVista(new VAdmin());
 					}
 				}
-				else if (this.tipo.equalsIgnoreCase("RegistroProm")) {
-					//TODO
+				else if (this.tipo.equalsIgnoreCase("registroPromoProd")) {
+					String nombre = this.vista.getProdSeleccionado().getNombre();
+					boolean dosporuno = this.vista.is2x1();
+					boolean cant = this.vista.isCantidad();
+					int cantMin = this.vista.getCantMinima();
+					double pUnitario = this.vista.getpUnitario();
+					ArrayList<DayOfWeek> diasDePromo = this.vista.getDias();
+					
+					
+					Cerveceria.getInstance().getAdmin().agregarPromocion(nombre, dosporuno, cant, cantMin, pUnitario);
+					//TODO: AGREGAR DIAS A PROMO, SOLO SETEAR EL ARRAY.
+					this.vista.cerrarse();
+					ControladorAdmin.getInstance().setVista(new VAdmin());
+				}
+				else if (this.tipo.equalsIgnoreCase("registroPromoTemp")) {
+					String nombre = this.vista.getNya();
+					FormaPago forma = this.vista.getFormaPago();
+					double porcentaje =  this.vista.getPorcentaje();
+					boolean isAcum = this.vista.isAcumulable();
+					int horaIn = this.vista.getHoraInicio();
+					int horaFin = this.vista.getHoraFin();
+					
+					Cerveceria.getInstance().getAdmin().agregarPromocion(nombre, forma, porcentaje, isAcum, horaIn, horaFin);
+					//TODO: AGREGAR DIAS A PROMO, SOLO SETEAR EL ARRAY.
+					this.vista.cerrarse();
+					ControladorAdmin.getInstance().setVista(new VAdmin());
 				}
 		  	}
 
 			else if  (comando.equalsIgnoreCase("MODIFICAR")) {	// Abre la ventana de modificacion correspondiente
+				int opcionesSeleccionadas = 0;
+				if (!this.vista.getIsProductoEmpty())
+					opcionesSeleccionadas++;
+				if (!this.vista.getIsMozoEmpty())
+					opcionesSeleccionadas++;
+				if (!this.vista.getIsOperarioEmpty())
+					opcionesSeleccionadas++;
+				if (!this.vista.getIsMesaEmpty())
+					opcionesSeleccionadas++;
+				if (!this.vista.getIsPromocionTempEmpty())
+					opcionesSeleccionadas++;
+				if (!this.vista.getIsPromocionProdEmpty())
+					opcionesSeleccionadas++;
+
+				if (opcionesSeleccionadas != 1)
+					JOptionPane.showMessageDialog(null, "Debe seleccionar un solo elemento de una unica lista.");
+				else {
+				
 				if (!this.vista.getIsProductoEmpty()) {    // Modificar producto
 					this.vista.cerrarse();
 					ControladorModificaciones.getInstance().setVista(new VProducto(), this.vista.getProdSeleccionado());
@@ -152,13 +186,32 @@ public class ControladorAdmin  implements ActionListener {
 				} else if (!this.vista.getIsOperarioEmpty()) {    // Modificar operario
 					this.vista.cerrarse();
 					ControladorModificaciones.getInstance().setVista(new VRegOp(), this.vista.getOperarioSeleccionado());
-				} else if (!this.vista.getIsPromocionEmpty()) {    // Modificar promocion
+				} else if (!this.vista.getIsPromocionProdEmpty()) {
 					this.vista.cerrarse();
-					ControladorModificaciones.getInstance().setVista(new VPromo(), this.vista.getPromocionSeleccionada());
+					ControladorModificaciones.getInstance().setVista(new VPromoProd(), this.vista.getPromocionProdSeleccionada());
+				}
+				
 				}
 			}
 
 			else if (comando.equalsIgnoreCase("ELIMINAR")) {
+				int opcionesSeleccionadas = 0;
+				if (!this.vista.getIsProductoEmpty())
+					opcionesSeleccionadas++;
+				if (!this.vista.getIsMozoEmpty())
+					opcionesSeleccionadas++;
+				if (!this.vista.getIsOperarioEmpty())
+					opcionesSeleccionadas++;
+				if (!this.vista.getIsMesaEmpty())
+					opcionesSeleccionadas++;
+				if (!this.vista.getIsPromocionTempEmpty())
+					opcionesSeleccionadas++;
+				if (!this.vista.getIsPromocionProdEmpty())
+					opcionesSeleccionadas++;
+
+				if (opcionesSeleccionadas != 1)
+					JOptionPane.showMessageDialog(null, "Debe seleccionar un solo elemento de una unica lista.");
+				else {
 				if (!this.vista.getIsProductoEmpty()) {
 					Cerveceria.getInstance().getAdmin().eliminarProducto(this.vista.getProdSeleccionado());
 					this.vista.ActualizarProductos(Cerveceria.getInstance().getCarta());
@@ -175,10 +228,14 @@ public class ControladorAdmin  implements ActionListener {
 					Cerveceria.getInstance().getAdmin().eliminarOperario(this.vista.getOperarioSeleccionado());
 					this.vista.ActualizarListaOperarios(Cerveceria.getInstance().getOperarios());
 				}
-				else if (!this.vista.getIsPromocionEmpty()) {
-					// TODO : Diferenciar promociones de productos y temporales
-					Cerveceria.getInstance().getAdmin().eliminarPromocion(this.vista.getPromocionSeleccionada());
-					this.vista.ActualizarPromociones(Cerveceria.getInstance());
+				else if (!this.vista.getIsPromocionProdEmpty()) {
+					 Cerveceria.getInstance().getAdmin().eliminarPromocion(this.vista.getPromocionProdSeleccionada());
+					 this.vista.ActualizarPromociones(Cerveceria.getInstance().getPromosProductos(), Cerveceria.getInstance().getPromosTemporales());
+				}
+				else if (!this.vista.getIsPromocionTempEmpty()) {
+					 Cerveceria.getInstance().getAdmin().eliminarPromocion(this.vista.getPromocionTempSeleccionada());
+					 this.vista.ActualizarPromociones(Cerveceria.getInstance().getPromosProductos(), Cerveceria.getInstance().getPromosTemporales());
+				}
 				}
 			}
 

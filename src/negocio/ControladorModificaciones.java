@@ -17,7 +17,8 @@ public class ControladorModificaciones implements ActionListener {
 	Operario op = null;
     Producto prod = null;
     Mozo mozo = null;
-    Promocion prom = null;
+    PromoTemporal promTemp = null;
+    PromoProducto promProd = null;
     Mesa mesa = null;
 
 	public static ControladorModificaciones getInstance() {
@@ -45,10 +46,16 @@ public class ControladorModificaciones implements ActionListener {
 		this.mozo = mozo;
 	}
 	
-	public void setVista(IVistaLogin vista, Promocion prom) {
+	public void setVista(IVistaLogin vista, PromoProducto prom) {
 		this.vista = vista;
 		this.vista.setActionListener(this);
-		this.prom = prom;
+		this.promProd = prom;
+	}
+	
+	public void setVista(IVistaLogin vista, PromoTemporal prom) {
+		this.vista = vista;
+		this.vista.setActionListener(this);
+		this.promTemp = prom;
 	}
 	
 	
@@ -59,7 +66,7 @@ public class ControladorModificaciones implements ActionListener {
 		try {
 			if (comando.equalsIgnoreCase("Aceptar")) {
 
-				if (prod != null) {		// MODIFICACION DE PRODUCTO
+				if (this.prod != null) {		// MODIFICACION DE PRODUCTO
 					double pVenta = this.vista.pVenta();
 					double pCosto = this.vista.pCosto();
 					int stock = this.vista.stock();
@@ -74,14 +81,14 @@ public class ControladorModificaciones implements ActionListener {
 					this.prod = null;
 				}
 
-				else if (op != null) {	// MODIFICACION DE OPERARIO
+				else if (this.op != null) {	// MODIFICACION DE OPERARIO
 					Cerveceria.getInstance().getAdmin().setEstadoOperario(op, this.vista.getEstadoOperario());
 					this.op = null;
 					this.vista.cerrarse();
 					ControladorAdmin.getInstance().setVista(new VAdmin());
 				}
 
-				else if (mozo != null) { 	// MODIFICACION DE MOZO
+				else if (this.mozo != null) { 	// MODIFICACION DE MOZO
 					int cantHijos = this.vista.getHijos();
 					if (cantHijos > 0)
 						Cerveceria.getInstance().getAdmin().modificarMozo(mozo, cantHijos);
@@ -93,9 +100,17 @@ public class ControladorModificaciones implements ActionListener {
 					this.mozo = null;
 				}
 
-				else if (prom != null) {	// MODIFICACION DE PROMOCION
-					// TODO: MODIFICACIONES PROMOCIONES
-					this.prom = null;
+				else if (this.promProd != null) {	// MODIFICACION DE PROMOCION (solo dias)?
+					//TODO: SIN MODIFICAR?
+					
+					
+					this.promProd = null;
+				}
+				else if (this.promTemp != null) {
+					//TODO: SIN MODIFICAR?
+					
+					
+					this.promTemp = null;
 				}
 
 			}

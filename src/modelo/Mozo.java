@@ -20,7 +20,7 @@ public class Mozo implements Serializable {
     private int cantHijos;
     private ArrayList<Mesa> mesas = new ArrayList<Mesa>();
     private ArrayList<Venta> ventas = new ArrayList<Venta>();
-    private EstadoMozo estado = null;
+    private EstadoMozo estado = EstadoMozo.ACTIVO;
 
     /**
      * Constructor de la clase Mozo.<br>

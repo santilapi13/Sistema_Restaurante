@@ -6,15 +6,23 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import modelo.Comanda;
+import modelo.EstadoMozo;
+import modelo.FormaPago;
 import modelo.Mesa;
 import modelo.Mozo;
 import modelo.Operario;
+import modelo.Pedido;
 import modelo.Producto;
+import modelo.PromoProducto;
+import modelo.PromoTemporal;
 import modelo.Promocion;
+import modelo.Venta;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -201,11 +209,7 @@ public class VRegOp extends JFrame implements IVistaLogin {
 
 
 
-	@Override
-	public void ActualizarPromociones(ArrayList<Promocion> promociones) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 
 
@@ -278,10 +282,7 @@ public class VRegOp extends JFrame implements IVistaLogin {
 		return false;
 	}
 
-	@Override
-	public boolean getIsPromocionEmpty() {
-		return false;
-	}
+	
 
 	@Override
 	public Operario getOperarioSeleccionado() {
@@ -298,14 +299,162 @@ public class VRegOp extends JFrame implements IVistaLogin {
 		return null;
 	}
 
-	@Override
-	public Promocion getPromocionSeleccionada() {
-		return null;
-	}
+	
 
 	@Override
 	public boolean getEstadoOperario() {
 		return this.rdbtnActivo.isSelected();
+	}
+
+
+
+	@Override
+	public boolean getIsPromocionProdEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public boolean getIsPromocionTempEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public PromoProducto getPromocionProdSeleccionada() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PromoTemporal getPromocionTempSeleccionada() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public void ActualizarPromociones(ArrayList<PromoProducto> promocionesProd,
+			ArrayList<PromoTemporal> promocionesTem) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public boolean is2x1() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public boolean isCantidad() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public int getCantMinima() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public double getpUnitario() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public ArrayList<DayOfWeek> getDias() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public FormaPago getFormaPago() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public int getHoraInicio() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public int getHoraFin() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public double getPorcentaje() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public boolean isAcumulable() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public void ActualizarVentas(ArrayList<Venta> ventas) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void ActualizarComandas(ArrayList<Comanda> comandas) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public EstadoMozo getEstadoMozo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public void ActualizarPedidos(ArrayList<Pedido> pedidos) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

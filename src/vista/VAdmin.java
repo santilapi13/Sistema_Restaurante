@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -33,7 +34,7 @@ public class VAdmin extends JFrame implements IVistaLogin {
 	private JPanel panel_3;
 	private JButton btnOperario;
 	private JButton btnMozo;
-	private JButton btnPromocion;
+	private JButton btnPromotemp;
 	private JButton btnAgregarProducto;
 	private JPanel panel_4;
 	private JPanel panel_5;
@@ -43,6 +44,7 @@ public class VAdmin extends JFrame implements IVistaLogin {
 	private JScrollPane scrollPane_9;
 	private JScrollPane scrollPane_8;
 	private JScrollPane scrollPane_7;
+	private JScrollPane scrollPane_10;
 	private JList<Mozo> listMozos;
 	private JPanel panel_6;
 	private JPanel panel_7;
@@ -57,7 +59,7 @@ public class VAdmin extends JFrame implements IVistaLogin {
 	private JList<Operario> listOperarios;
 	private JList<Mesa> listMesas;
 	private JLabel lblNewLabel_2;
-	private JList<Promocion> listPromociones;
+	private JList<PromoTemporal> listPromoTemporal;
 	private JLabel lblNewLabel_3;
 	private JList<Producto> listProductos;
 	private JLabel lblNewLabel_5;
@@ -71,7 +73,13 @@ public class VAdmin extends JFrame implements IVistaLogin {
 	private DefaultListModel<Mozo> modeloMozo = new DefaultListModel<Mozo>();
 	private DefaultListModel<Mesa> modeloMesa = new DefaultListModel<Mesa>();
 	private DefaultListModel<Producto> modeloProd = new DefaultListModel<Producto>();
-	private DefaultListModel<Promocion> modeloPromo = new DefaultListModel<Promocion>();
+	private DefaultListModel<PromoTemporal> modeloPromo = new DefaultListModel<PromoTemporal>();
+	private DefaultListModel<PromoProducto> modeloPromoProd = new DefaultListModel<PromoProducto>();
+	
+	private JPanel panel_12;
+	private JLabel lblNewLabel_7;
+	private JList<PromoProducto> listPromoProducto;
+	private JButton btnPromoProd;
 	
 
 	/**
@@ -107,7 +115,7 @@ public class VAdmin extends JFrame implements IVistaLogin {
 		
 		this.panel_3 = new JPanel();
 		this.panel.add(this.panel_3);
-		this.panel_3.setLayout(new GridLayout(5, 0, 0, 0));
+		this.panel_3.setLayout(new GridLayout(6, 0, 0, 0));
 		
 		this.btnOperario = new JButton("AGREGAR OPERARIO");
 		
@@ -117,9 +125,14 @@ public class VAdmin extends JFrame implements IVistaLogin {
 		
 		this.panel_3.add(this.btnMozo);
 		
-		this.btnPromocion = new JButton("AGREGAR PROMOCION");
+		this.btnPromotemp = new JButton("AGREGAR PROMO TEMP");
+		btnPromotemp.setFont(new Font("Tahoma", Font.PLAIN, 9));
 	
-		this.panel_3.add(this.btnPromocion);
+		this.panel_3.add(this.btnPromotemp);
+		
+		btnPromoProd = new JButton("AGREGAR PROMO PROD");
+		btnPromoProd.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		panel_3.add(btnPromoProd);
 		
 		this.btnAgregarProducto = new JButton("AGREGAR PRODUCTO");
 		this.panel_3.add(this.btnAgregarProducto);
@@ -140,7 +153,7 @@ public class VAdmin extends JFrame implements IVistaLogin {
 		
 		this.panel_1 = new JPanel();
 		this.contentPane.add(this.panel_1, BorderLayout.CENTER);
-		this.panel_1.setLayout(new GridLayout(0, 5, 0, 0));
+		this.panel_1.setLayout(new GridLayout(0, 6, 0, 0));
 		
 		this.panel_4 = new JPanel();
 		this.panel_4.setBorder(new EmptyBorder(0, 0, 5, 0));
@@ -196,17 +209,31 @@ public class VAdmin extends JFrame implements IVistaLogin {
 		panel_1.add(panel_8);
 		panel_8.setLayout(new BorderLayout(0, 0));
 		
-		listPromociones = new JList();
+		listPromoTemporal = new JList();
 		
 		
-		lblNewLabel_3 = new JLabel("Promociones");
+		lblNewLabel_3 = new JLabel("Promo Temporal");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
 		panel_8.add(lblNewLabel_3, BorderLayout.NORTH);
 		
 		this.scrollPane_8 = new JScrollPane();
 		this.panel_8.add(this.scrollPane_8, BorderLayout.CENTER);
 		
-		this.scrollPane_8.setViewportView(this.listPromociones);
+		this.scrollPane_8.setViewportView(this.listPromoTemporal);
+		
+		panel_12 = new JPanel();
+		panel_1.add(panel_12);
+		panel_12.setLayout(new BorderLayout(0, 0));
+		
+		lblNewLabel_7 = new JLabel("Promo Producto");
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 11));
+		panel_12.add(lblNewLabel_7, BorderLayout.NORTH);
+		
+		this.scrollPane_10 = new JScrollPane();
+		this.panel_12.add(this.scrollPane_10, BorderLayout.CENTER);
+		
+		listPromoProducto = new JList();
+		this.scrollPane_10.setViewportView(this.listPromoProducto);
 		
 		
 		panel_9 = new JPanel();
@@ -250,7 +277,9 @@ public class VAdmin extends JFrame implements IVistaLogin {
 		this.listMozos.setModel(modeloMozo);
 		this.listMesas.setModel(modeloMesa);
 		this.listProductos.setModel(modeloProd);
-		this.listPromociones.setModel(modeloPromo);
+		this.listPromoTemporal.setModel(modeloPromo);
+		this.listPromoProducto.setModel(modeloPromoProd);
+		
 		
 		this.setVisible(true);
 		
@@ -266,7 +295,8 @@ public class VAdmin extends JFrame implements IVistaLogin {
 		this.btnMozo.addActionListener(actionListener);
 		this.btnOperario.addActionListener(actionListener);
 		this.btnSalir.addActionListener(actionListener);
-		this.btnPromocion.addActionListener(actionListener);
+		this.btnPromotemp.addActionListener(actionListener);
+		this.btnPromoProd.addActionListener(actionListener);
 		
 		this.actionListener = actionListener;
 	}
@@ -350,11 +380,16 @@ public class VAdmin extends JFrame implements IVistaLogin {
 		}
 
 		@Override
-		public void ActualizarPromociones(ArrayList<Promocion> promociones) {
+		public void ActualizarPromociones(ArrayList<PromoProducto> promocionesProd, ArrayList<PromoTemporal> promocionesTemp) {
 				this.modeloPromo.removeAllElements();
+				this.modeloPromoProd.removeAllElements();
 			
-			for (Promocion promoAct : promociones)
+			for (PromoProducto promoAct : promocionesProd)
+				this.modeloPromoProd.addElement(promoAct);
+			
+			for (PromoTemporal promoAct : promocionesTemp)
 				this.modeloPromo.addElement(promoAct);
+			
 			this.validate();
 			
 		}
@@ -371,7 +406,8 @@ public class VAdmin extends JFrame implements IVistaLogin {
 
 		@Override
 		public int getComensales() {
-			return this.spinnerComensales.getComponentCount();
+		  int value = (Integer) this.spinnerComensales.getValue();
+		  return value;
 		}
 
 		@Override
@@ -417,10 +453,7 @@ public class VAdmin extends JFrame implements IVistaLogin {
 		return this.listMozos.isSelectionEmpty();
 	}
 
-	@Override
-	public boolean getIsPromocionEmpty() {
-		return this.listPromociones.isSelectionEmpty();
-	}
+	
 
 	@Override
 	public Operario getOperarioSeleccionado() {
@@ -437,14 +470,116 @@ public class VAdmin extends JFrame implements IVistaLogin {
 		return this.listMozos.getSelectedValue();
 	}
 
-	@Override
-	public Promocion getPromocionSeleccionada() {
-		return this.listPromociones.getSelectedValue();
-	}
+	
+	
 
 	@Override
 	public boolean getEstadoOperario() {
 		return false;
+	}
+
+	@Override
+	public boolean getIsPromocionProdEmpty() {
+		return this.listPromoProducto.isSelectionEmpty();
+	}
+
+	@Override
+	public boolean getIsPromocionTempEmpty() {
+		return this.listPromoTemporal.isSelectionEmpty();
+	}
+
+	@Override
+	public PromoProducto getPromocionProdSeleccionada() {
+		return this.listPromoProducto.getSelectedValue();
+	}
+
+	@Override
+	public PromoTemporal getPromocionTempSeleccionada() {
+		return this.listPromoTemporal.getSelectedValue();
+	}
+
+	@Override
+	public boolean is2x1() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isCantidad() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int getCantMinima() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getpUnitario() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<DayOfWeek> getDias() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public FormaPago getFormaPago() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getHoraInicio() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getHoraFin() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double getPorcentaje() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean isAcumulable() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void ActualizarVentas(ArrayList<Venta> ventas) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void ActualizarComandas(ArrayList<Comanda> comandas) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public EstadoMozo getEstadoMozo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void ActualizarPedidos(ArrayList<Pedido> pedidos) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

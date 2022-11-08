@@ -668,4 +668,18 @@ public class Cerveceria extends Observable {
         } else
             throw new OperarioInexistenteException(operario.getUsername());
     }
+    
+    public ArrayList<Pedido> getComandaDeMesa(int nromesa)
+    {
+    	ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
+    	int i=0;
+    	
+    	while (i < this.comandasAbiertas.size() && this.comandasAbiertas.get(i).getMesa().getNroMesa() != nromesa)
+			i++;
+		if (i < this.comandasAbiertas.size() &&  this.comandasAbiertas.get(i).getMesa().getNroMesa() == nromesa)
+			pedidos = this.comandasAbiertas.get(i).getPedidos();
+    	
+    	return pedidos;
+    }
+    
 }

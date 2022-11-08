@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
@@ -17,13 +18,10 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.border.LineBorder;
 
-import modelo.Mesa;
-import modelo.Mozo;
-import modelo.Operario;
-import modelo.Producto;
-import modelo.Promocion;
+import modelo.*;
 
 import java.awt.Color;
 
@@ -35,12 +33,11 @@ public class VOperario extends JFrame implements IVistaLogin {
 	private JPanel panel_2;
 	private JLabel lblNewLabel;
 	private JScrollPane scrollPane;
-	private JList listMozos;
+	private JList<Mozo> listMozos;
 	private JPanel panel_3;
-	private JButton btnEstadisticas;
 	private JLabel lblNewLabel_1;
 	private JScrollPane scrollPane_1;
-	private JList listMesas;
+	private JList<Mesa> listMesas;
 	private JPanel panel_4;
 	private JButton btnAsignar;
 	private JButton btnPedido;
@@ -51,13 +48,13 @@ public class VOperario extends JFrame implements IVistaLogin {
 	private JPanel panel_7;
 	private JLabel lblNewLabel_3;
 	private JScrollPane scrollPane_2;
-	private JList listComandas;
+	private JList<Comanda> listComandas;
 	private JButton btnCerrarmesa;
 	private JPanel panel_8;
 	private JPanel panel_9;
 	private JLabel lblNewLabel_4;
 	private JScrollPane scrollPane_3;
-	private JList listVentas;
+	private JList<Venta> listVentas;
 	private JPanel panel_10;
 	private JLabel lblNewLabel_5;
 	private JComboBox comboBoxEstado;
@@ -68,6 +65,10 @@ public class VOperario extends JFrame implements IVistaLogin {
 	private JLabel lblNewLabel_6;
 	private ActionListener actionListener;
 	
+	private DefaultListModel<Comanda> modeloComanda = new DefaultListModel<Comanda>();
+	private DefaultListModel<Venta> modeloVenta = new DefaultListModel<Venta>();
+	private DefaultListModel<Mozo> modeloMozo = new DefaultListModel<Mozo>();
+	private DefaultListModel<Mesa> modeloMesa = new DefaultListModel<Mesa>();
 	
 	/**
 	 * Create the frame.
@@ -100,10 +101,6 @@ public class VOperario extends JFrame implements IVistaLogin {
 		this.panel_3 = new JPanel();
 		this.panel.add(this.panel_3, BorderLayout.SOUTH);
 		this.panel_3.setLayout(new GridLayout(3, 0, 0, 0));
-		
-		this.btnEstadisticas = new JButton("ESTADISTICAS");
-		this.btnEstadisticas.setActionCommand("ESTADISTICAS");
-		this.panel_3.add(this.btnEstadisticas);
 		
 		panel_10 = new JPanel();
 		panel_3.add(panel_10);
@@ -146,7 +143,6 @@ public class VOperario extends JFrame implements IVistaLogin {
 		this.panel_4.add(this.btnAsignar);
 		
 		this.btnPedido = new JButton("TOMAR COMANDA");
-		this.btnPedido.setActionCommand("PEDIDO");
 		this.panel_4.add(this.btnPedido);
 		
 		this.panel_5 = new JPanel();
@@ -229,6 +225,11 @@ public class VOperario extends JFrame implements IVistaLogin {
 		panel_11.add(lblNewLabel_6);
 		
 		
+		this.listVentas.setModel(modeloVenta);
+		this.listMozos.setModel(modeloMozo);
+		this.listMesas.setModel(modeloMesa);
+		this.listComandas.setModel(modeloComanda);
+		
 		this.setVisible(true);
 	}
 
@@ -236,7 +237,6 @@ public class VOperario extends JFrame implements IVistaLogin {
 	public void setActionListener(ActionListener actionListener) {
 		this.btnAplicar.addActionListener(actionListener);
 		this.btnAsignar.addActionListener(actionListener);
-		this.btnEstadisticas.addActionListener(actionListener);
 		this.btnSalir.addActionListener(actionListener);
 		this.btnContrasena.addActionListener(actionListener);
 		this.btnPedido.addActionListener(actionListener);
@@ -313,25 +313,46 @@ public class VOperario extends JFrame implements IVistaLogin {
 	}
 
 
-	@Override
 	public void ActualizarMozos(ArrayList<Mozo> mozos) {
-		// TODO Auto-generated method stub
-		
+		this.modeloMozo.removeAllElements();
+	
+		for (Mozo mozoAct : mozos)
+			this.modeloMozo.addElement(mozoAct);
+		this.validate();
 	}
 
-
-	@Override
+@Override
 	public void ActualizarMesas(ArrayList<Mesa> mesas) {
-		// TODO Auto-generated method stub
-		
+		this.modeloMesa.removeAllElements();
+	
+		for (Mesa mesaAct : mesas)
+			this.modeloMesa.addElement(mesaAct);
+		this.validate();
+	
+	}
+
+@Override
+	public void ActualizarVentas(ArrayList<Venta> ventas) {
+		this.modeloVenta.removeAllElements();
+	
+		for (Venta vAct : ventas)
+			this.modeloVenta.addElement(vAct);
+		this.validate();
+	
 	}
 
 
-	@Override
-	public void ActualizarPromociones(ArrayList<Promocion> promociones) {
-		// TODO Auto-generated method stub
-		
-	}
+@Override
+	public void ActualizarComandas(ArrayList<Comanda> comandas) {
+		this.modeloComanda.removeAllElements();
+	
+		for (Comanda cAct : comandas)
+			this.modeloComanda.addElement(cAct);
+		this.validate();
+	
+		}
+	
+	
 
 
 	@Override
@@ -381,5 +402,192 @@ public class VOperario extends JFrame implements IVistaLogin {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public boolean getIsOperarioEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public boolean getIsMesaEmpty() {
+		return this.listMesas.isSelectionEmpty();
+	}
+
+	@Override
+	public boolean getIsMozoEmpty() {
+		return this.listMozos.isSelectionEmpty();
+	}
+
+
+	@Override
+	public boolean getIsPromocionProdEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public boolean getIsPromocionTempEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public Operario getOperarioSeleccionado() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Mesa getMesaSeleccionada() {
+		return this.listMesas.getSelectedValue();
+	}
+
+	@Override
+	public Mozo getMozoSeleccionado() {
+		return this.listMozos.getSelectedValue();
+	}
+
+
+	@Override
+	public PromoProducto getPromocionProdSeleccionada() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PromoTemporal getPromocionTempSeleccionada() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public boolean getEstadoOperario() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void ActualizarPromociones(ArrayList<PromoProducto> promocionesProd,
+			ArrayList<PromoTemporal> promocionesTem) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public boolean is2x1() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public boolean isCantidad() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public int getCantMinima() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public double getpUnitario() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public ArrayList<DayOfWeek> getDias() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public FormaPago getFormaPago() {
+		String text = (String) this.comboBoxPago.getSelectedItem();
+		
+		FormaPago forma = null;
+		
+		if (text.equalsIgnoreCase("EFECTIVO"))
+			forma = FormaPago.EFECTIVO;
+		else if (text.equalsIgnoreCase("TARJETA")) 
+			forma = FormaPago.TARJETA;
+		else if (text.equalsIgnoreCase("MP")) 
+			forma = FormaPago.MP;
+		else if (text.equalsIgnoreCase("CTADNI")) 
+			forma = FormaPago.CTADNI;
+		
+		return forma;
+	
+	}
+	
+	public EstadoMozo getEstadoMozo() {
+		String text = (String) this.comboBoxPago.getSelectedItem();
+		
+		EstadoMozo e = null;
+		
+		if (text.equalsIgnoreCase("ACIVO"))
+			e = EstadoMozo.ACTIVO;
+		else if (text.equalsIgnoreCase("FRANCO")) 
+			e = EstadoMozo.FRANCO;
+		else if (text.equalsIgnoreCase("AUSENTE")) 
+			e = EstadoMozo.AUSENTE;
+		
+		
+		return e;
+	
+	}
+
+
+	@Override
+	public int getHoraInicio() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int getHoraFin() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public double getPorcentaje() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public boolean isAcumulable() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void ActualizarPedidos(ArrayList<Pedido> pedidos) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	
 
 }

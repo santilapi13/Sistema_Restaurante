@@ -3,6 +3,7 @@ package modelo;
 import excepciones.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Clase Operario del modelo <br>
@@ -149,6 +150,12 @@ public class Operario implements Serializable {
       assert cantidad >= 0 : "La cantidad no puede ser menor a 0.";
       Cerveceria.getInstance().tomarComanda(nroMesa, nombreProducto, cantidad);
       this.invariante();
+   }
+   
+   public ArrayList<Pedido> getComandaDeMesa(int nromesa)
+   {
+	return Cerveceria.getInstance().getComandaDeMesa(nromesa);
+	
    }
 
    private void invariante() {

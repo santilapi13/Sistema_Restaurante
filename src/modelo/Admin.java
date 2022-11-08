@@ -10,7 +10,7 @@ import java.time.DayOfWeek;
  */
 public class Admin extends Operario implements Serializable {
 
-	private boolean isPrimera = true;       //tiene q ser true, para pruebas lo deje en false
+	private boolean isPrimera = false;       //tiene q ser true, para pruebas lo deje en false
 	 
     public Admin() {
         super("ADMIN", "ADMIN", "ADMIN1234");

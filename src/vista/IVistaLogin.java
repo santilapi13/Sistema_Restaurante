@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.event.ActionListener;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 
 import modelo.*;
@@ -39,9 +40,15 @@ public interface IVistaLogin {
 	
 	public void ActualizarMesas(ArrayList<Mesa> mesas);
 	
-	public void ActualizarPromociones(ArrayList<Promocion> promociones);
+	public void ActualizarPromociones(ArrayList<PromoProducto> promocionesProd, ArrayList<PromoTemporal> promocionesTem);
 	
 	public void ActualizarProductos(ArrayList<Producto> productos);
+	
+	public void ActualizarVentas(ArrayList<Venta> ventas);
+	
+	public void ActualizarComandas(ArrayList<Comanda> comandas);
+	
+	public void ActualizarPedidos(ArrayList<Pedido> pedidos);
 	
 	public boolean getIsProductoEmpty();
 	
@@ -53,7 +60,9 @@ public interface IVistaLogin {
 
 	public boolean getIsMozoEmpty();
 
-	public boolean getIsPromocionEmpty();
+	public boolean getIsPromocionProdEmpty();
+	
+	public boolean getIsPromocionTempEmpty();
 
 	public Operario getOperarioSeleccionado();
 
@@ -61,7 +70,33 @@ public interface IVistaLogin {
 
 	public Mozo getMozoSeleccionado();
 
-	public Promocion getPromocionSeleccionada();
+	public PromoProducto getPromocionProdSeleccionada();
+	
+	public PromoTemporal getPromocionTempSeleccionada();
 
 	public boolean getEstadoOperario();
+	
+	public boolean is2x1();
+	
+	public boolean isCantidad();
+	
+	public int getCantMinima();
+	
+	public double getpUnitario();
+	
+	public ArrayList<DayOfWeek> getDias();
+	
+	public FormaPago getFormaPago();
+	
+	public EstadoMozo getEstadoMozo();
+	
+	public int getHoraInicio();
+	
+	public int getHoraFin();
+	
+	public double getPorcentaje();
+	
+	public boolean isAcumulable();
+	
+	
 }
