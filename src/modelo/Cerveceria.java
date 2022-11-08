@@ -1,7 +1,13 @@
 package modelo;
 
 import excepciones.*;
+import persistencia.CerveceriaDTO;
+import persistencia.IPersistencia;
+import persistencia.PersistenciaBin;
+import persistencia.UtilCerveceria;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -10,7 +16,7 @@ public class Cerveceria extends Observable {
 
     private String nombreLocal;
     private ArrayList<Mozo> mozos = new ArrayList<Mozo>();
-    private ArrayList<Mesa> mesas = new ArrayList<Mesa>();
+    private ArrayList<Mesa> mesas;
     private ArrayList<Producto> carta = new ArrayList<Producto>();
     private ArrayList<Operario> operarios = new ArrayList<Operario>();
     private ArrayList<Comanda> comandasAbiertas = new ArrayList<Comanda>();
@@ -22,6 +28,8 @@ public class Cerveceria extends Observable {
 
     private static Cerveceria instance = null;
     private Cerveceria() {
+        mesas = new ArrayList<Mesa>();
+        this.mesas.add(new Mesa(1));    // Por defecto, la barra empieza con 1 comensal
     }
     public static Cerveceria getInstance(){
         if(instance == null){
@@ -302,10 +310,11 @@ public class Cerveceria extends Observable {
      * @param aplicaDtoPorCantidad: Indica si la promocion aplica descuento por cantidad.
      * @param dtoPorCantidad_CantMinima: La cantidad minima para aplicar el descuento por cantidad.
      * @param dtoPorCantidad_PrecioUnit: El precio unitario para aplicar el descuento por cantidad.
+     * @param diasDePromo: Los dias de la semana en los que aplica la promocion.
      * @throws ProductoInexistenteException: Se lanza si el producto no existe.
      * @throws PromocionRepetidaException: Se lanza si la promocion ya existe.
      */
-    public void agregarPromocion(String nombreProducto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnit) throws ProductoInexistenteException, PromocionRepetidaException {
+    public void agregarPromocion(String nombreProducto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnit, ArrayList<DayOfWeek> diasDePromo) throws ProductoInexistenteException, PromocionRepetidaException {
         assert nombreProducto != null : "El producto no puede ser null";
         assert aplicaDosPorUno || aplicaDtoPorCantidad : "Debe aplicar al menos un tipo de promoción";
         assert dtoPorCantidad_CantMinima >= 0 : "La cantidad mínima debe ser mayor o igual a 0";
@@ -320,7 +329,7 @@ public class Cerveceria extends Observable {
             i++;
 
         if (i < carta.size() && carta.get(i).getNombre().equalsIgnoreCase(nombreProducto)) {
-            PromoProducto promocion = new PromoProducto(carta.get(i), aplicaDosPorUno, aplicaDtoPorCantidad, dtoPorCantidad_CantMinima, dtoPorCantidad_PrecioUnit);
+            PromoProducto promocion = new PromoProducto(carta.get(i), aplicaDosPorUno, aplicaDtoPorCantidad, dtoPorCantidad_CantMinima, dtoPorCantidad_PrecioUnit, diasDePromo);
             if (promosProductos.contains(promocion))
                 throw new PromocionRepetidaException("del producto " + nombreProducto);
             else
@@ -342,19 +351,22 @@ public class Cerveceria extends Observable {
      * @param esAcumulable: Indica si la promocion es acumulable.
      * @param horaInicio: La hora de inicio de la promocion.
      * @param horaFin: La hora de fin de la promocion.
+     * @param diasDePromo : Los dias de la semana en los que se aplica la promocion.
      * @throws PromocionRepetidaException: Se lanza si la promocion ya existe.
      */
-    public void agregarPromocion(String nombre, FormaPago formaPago, double porcentajeDesc, boolean esAcumulable, int horaInicio, int horaFin) throws PromocionRepetidaException {
+    public void agregarPromocion(String nombre, FormaPago formaPago, double porcentajeDesc, boolean esAcumulable, int horaInicio, int horaFin, ArrayList<DayOfWeek> diasDePromo) throws PromocionRepetidaException {
         assert nombre != null : "El nombre no puede ser null";
         assert porcentajeDesc > 0 : "El porcentaje de descuento debe ser mayor a 0";
         assert horaInicio >= 0 && horaInicio <= 23 : "La hora de inicio debe ser un numero entre 0 y 23";
         assert horaFin >= 0 && horaFin <= 23 : "La hora de fin debe ser un numero entre 0 y 23";
 
-        PromoTemporal promocion = new PromoTemporal(nombre, formaPago, porcentajeDesc, esAcumulable, horaInicio, horaFin);
-        if (promosTemporales.contains(promocion))
-            throw new PromocionRepetidaException(nombre);
+        int i = 0;
+        while (i < promosTemporales.size() && !promosTemporales.get(i).getNombre().equalsIgnoreCase(nombre))
+            i++;
+        if (i < promosTemporales.size() && promosTemporales.get(i).getNombre().equalsIgnoreCase(nombre))
+            throw new PromocionRepetidaException("temporal " + nombre);
         else
-            promosTemporales.add(promocion);
+            promosTemporales.add(new PromoTemporal(nombre, formaPago, porcentajeDesc, esAcumulable, horaInicio, horaFin, diasDePromo));
 
         this.invariante();
     }
@@ -417,7 +429,7 @@ public class Cerveceria extends Observable {
      * @throws ProductoInexistenteException : Se lanza si el producto no existe.
      */
     public void tomarComanda(int nroMesa, String nombreProducto, int cantidad) throws MesaInexistenteException, ProductoInexistenteException {
-        assert nroMesa > 0 : "El numero de mesa debe ser positivo";
+        assert nroMesa >= 0 : "El numero de mesa debe ser positivo";
         assert nombreProducto != null : "El nombre del producto no puede ser null";
         assert cantidad > 0 : "La cantidad debe ser positiva";
 
@@ -448,26 +460,6 @@ public class Cerveceria extends Observable {
         }
 
         this.invariante();
-    }
-
-    public void agregarDiaPromocion(String nombrePromocion, DayOfWeek dia) throws PromocionInexistenteException {
-        int i = 0;
-        while (i < promosTemporales.size() && !promosTemporales.get(i).getNombre().equalsIgnoreCase(nombrePromocion))
-            i++;
-        if (i < promosTemporales.size() && promosTemporales.get(i).getNombre().equalsIgnoreCase(nombrePromocion))
-            promosTemporales.get(i).agregarDia(dia);
-        else
-            throw new PromocionInexistenteException(nombrePromocion);
-    }
-
-    public void agregarDiaPromocion(int idPromocion, DayOfWeek dia) throws PromocionInexistenteException {
-        int i = 0;
-        while (i < promosProductos.size() && promosProductos.get(i).getId_promo() != idPromocion)
-            i++;
-        if (i < promosProductos.size() && promosProductos.get(i).getId_promo() == idPromocion)
-            promosProductos.get(i).agregarDia(dia);
-        else
-            throw new PromocionInexistenteException(String.valueOf(idPromocion));
     }
 
     public Admin getAdmin() {
@@ -680,6 +672,23 @@ public class Cerveceria extends Observable {
 			pedidos = this.comandasAbiertas.get(i).getPedidos();
     	
     	return pedidos;
+    }
+
+    public void persistirCerveceria() throws IOException {
+        IPersistencia<Serializable> persistencia = new PersistenciaBin();
+        persistencia.abrirOutput("Cerveceria.bin");
+        CerveceriaDTO cerveceriaDTO = UtilCerveceria.cerveceriaToCerveceriaDTO(Cerveceria.getInstance());
+        persistencia.escribir(cerveceriaDTO);
+        persistencia.cerrarOutput();
+    }
+
+    public void cargarCerveceria() throws IOException, ClassNotFoundException {
+        IPersistencia<Serializable> persistencia = new PersistenciaBin();
+        Cerveceria cerveceria = Cerveceria.getInstance();
+        persistencia.abrirInput("cerveceria.bin");
+        CerveceriaDTO cerveceriaDTO = (CerveceriaDTO) persistencia.leer();
+        UtilCerveceria.cerveceriaDTOToCerveceria(cerveceriaDTO, cerveceria);
+        persistencia.cerrarInput();
     }
     
 }

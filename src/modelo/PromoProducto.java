@@ -1,5 +1,8 @@
 package modelo;
 
+import java.time.DayOfWeek;
+import java.util.ArrayList;
+
 /**
  * Clase que representa una promoción sobre un producto.<br>
  */
@@ -23,8 +26,10 @@ public class PromoProducto extends Promocion {
      * @param aplicaDtoPorCantidad : Indica si la promoción es por cantidad.
      * @param dtoPorCantidad_CantMinima : La cantidad mínima para aplicar el descuento por cantidad.
      * @param dtoPorCantidad_PrecioUnit : El nuevo precio unitario del producto al aplicar el descuento por cantidad.
+     * @param diasPromo : Los dias de la semana en los que se aplica la promoción.
      */
-    public PromoProducto(Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnit) {
+    public PromoProducto(Producto producto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnit, ArrayList<DayOfWeek> diasPromo) {
+        super(diasPromo);
         assert producto != null : "El producto no puede ser null";
         assert aplicaDosPorUno || aplicaDtoPorCantidad : "Debe aplicar al menos un tipo de promoción";
         assert dtoPorCantidad_CantMinima >= 0 : "La cantidad mínima debe ser mayor o igual a 0";
@@ -97,5 +102,14 @@ public class PromoProducto extends Promocion {
 
     public void setDtoPorCantidad_PrecioUnit(double dtoPorCantidad_PrecioUnit) {
         this.dtoPorCantidad_PrecioUnit = dtoPorCantidad_PrecioUnit;
+    }
+
+    @Override
+    public String toString() {
+        return id_promo + ". " +
+                producto.getNombre() + ": " +
+                (aplicaDosPorUno ? "2x1" : "") +
+                (aplicaDtoPorCantidad ? ("$" + dtoPorCantidad_PrecioUnit + " llevando " + dtoPorCantidad_CantMinima) : "") +
+                ", dias: " + getDiasDePromo();
     }
 }

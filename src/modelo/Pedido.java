@@ -53,7 +53,6 @@ public class Pedido implements Serializable {
     @Override
     public String toString() {
         return producto +
-                "\t Cantidad: " + cantidad +
-                "\t Fecha: " + fecha;
+                ", cantidad: " + cantidad;
     }
 }

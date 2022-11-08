@@ -580,6 +580,11 @@ public class VOperario extends JFrame implements IVistaLogin {
 		return false;
 	}
 
+	@Override
+	public void deseleccionarTodo() {
+
+	}
+
 
 	@Override
 	public void ActualizarPedidos(ArrayList<Pedido> pedidos) {

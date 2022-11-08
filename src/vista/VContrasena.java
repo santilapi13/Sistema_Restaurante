@@ -398,7 +398,12 @@ public class VContrasena extends JFrame implements KeyListener, MouseListener, I
 		return false;
 	}
 
-	@Override
+    @Override
+    public void deseleccionarTodo() {
+
+    }
+
+    @Override
 	public void ActualizarVentas(ArrayList<Venta> ventas) {
 		// TODO Auto-generated method stub
 		

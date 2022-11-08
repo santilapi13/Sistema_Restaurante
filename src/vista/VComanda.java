@@ -484,9 +484,10 @@ public class VComanda extends JFrame implements IVistaLogin{
 		return false;
 	}
 
+	@Override
+	public void deseleccionarTodo() {
 
+	}
 
-	
-	
 
 }

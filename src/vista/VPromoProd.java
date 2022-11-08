@@ -352,12 +352,19 @@ public class VPromoProd extends JFrame implements IVistaLogin {
 	@Override
 	public int getCantMinima() {
 		String text = this.textCantMinima.getText();
-		return Integer.parseInt(text);
+		if (text != null && text.matches("[0-9]+"))	// Si es numerico
+			return Integer.parseInt(text);
+		else
+			return 0;
 	}
 
 	@Override
 	public double getpUnitario() {
-		return Double.parseDouble(this.textPUnitario.getText());
+		String text = this.textPUnitario.getText();
+		if (text != null && text.matches("[0-9]+"))	// Si es numerico
+			return Double.parseDouble(text);
+		else
+			return 0;
 	}
 
 	@Override
@@ -418,6 +425,11 @@ public class VPromoProd extends JFrame implements IVistaLogin {
 	public boolean isAcumulable() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void deseleccionarTodo() {
+
 	}
 
 	@Override

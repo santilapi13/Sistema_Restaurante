@@ -185,7 +185,6 @@ public class VProducto extends JFrame implements IVistaLogin{
 			return -1;
 		else
 			return Double.parseDouble(this.textVenta.getText());
-		
 	}
 
 	@Override
@@ -367,6 +366,11 @@ public class VProducto extends JFrame implements IVistaLogin{
 	public boolean isAcumulable() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void deseleccionarTodo() {
+
 	}
 
 	@Override

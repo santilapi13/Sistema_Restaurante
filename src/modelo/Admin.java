@@ -4,6 +4,7 @@ import excepciones.*;
 
 import java.io.Serializable;
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 
 /**
  * Clase que representa un operario administrador.<br>
@@ -109,7 +110,7 @@ public class Admin extends Operario implements Serializable {
      * @throws ProductoInexistenteException: Se lanza si el producto no existe.
      * @throws PromocionRepetidaException : Se lanza si la promocion ya existe.
      */
-    public void agregarPromocion(String nombreProducto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnit) throws ProductoInexistenteException, PromocionRepetidaException {
+    public void agregarPromocion(String nombreProducto, boolean aplicaDosPorUno, boolean aplicaDtoPorCantidad, int dtoPorCantidad_CantMinima, double dtoPorCantidad_PrecioUnit, ArrayList<DayOfWeek> diasDePromo) throws ProductoInexistenteException, PromocionRepetidaException {
         assert nombreProducto != null : "El producto no puede ser null";
         assert aplicaDosPorUno || aplicaDtoPorCantidad : "Debe aplicar al menos un tipo de promoción";
         assert dtoPorCantidad_CantMinima >= 0 : "La cantidad mínima debe ser mayor o igual a 0";
@@ -118,7 +119,7 @@ public class Admin extends Operario implements Serializable {
             assert dtoPorCantidad_CantMinima > 0 : "La cantidad mínima debe ser mayor a 0";
             assert dtoPorCantidad_PrecioUnit > 0 : "El precio unitario debe ser mayor a 0";
         }
-        Cerveceria.getInstance().agregarPromocion(nombreProducto, aplicaDosPorUno, aplicaDtoPorCantidad, dtoPorCantidad_CantMinima, dtoPorCantidad_PrecioUnit);
+        Cerveceria.getInstance().agregarPromocion(nombreProducto, aplicaDosPorUno, aplicaDtoPorCantidad, dtoPorCantidad_CantMinima, dtoPorCantidad_PrecioUnit, diasDePromo);
     }
 
     /**
@@ -134,13 +135,13 @@ public class Admin extends Operario implements Serializable {
      * @param horaFin: La hora de fin de la promocion.
      * @throws PromocionRepetidaException: Se lanza si la promocion ya existe.
      */
-    public void agregarPromocion(String nombre, FormaPago formaPago, double porcentajeDesc, boolean esAcumulable, int horaInicio, int horaFin) throws PromocionRepetidaException {
+    public void agregarPromocion(String nombre, FormaPago formaPago, double porcentajeDesc, boolean esAcumulable, int horaInicio, int horaFin, ArrayList<DayOfWeek> diasDePromo) throws PromocionRepetidaException {
         assert nombre != null : "El nombre no puede ser null";
         assert porcentajeDesc > 0 : "El porcentaje de descuento debe ser mayor a 0";
         assert horaInicio >= 0 && horaInicio <= 23 : "La hora de inicio debe ser un numero entre 0 y 23";
         assert horaFin >= 0 && horaFin <= 23 : "La hora de fin debe ser un numero entre 0 y 23";
 
-        Cerveceria.getInstance().agregarPromocion(nombre, formaPago, porcentajeDesc, esAcumulable, horaInicio, horaFin);
+        Cerveceria.getInstance().agregarPromocion(nombre, formaPago, porcentajeDesc, esAcumulable, horaInicio, horaFin, diasDePromo);
     }
 
     /**
@@ -168,18 +169,6 @@ public class Admin extends Operario implements Serializable {
         assert promo != null : "La promocion no puede ser null";
 
         Cerveceria.getInstance().eliminarPromocion(promo);
-    }
-
-    public void agregarDiaPromocion(DayOfWeek dia, String nombrePromocion) throws PromocionInexistenteException {
-        assert nombrePromocion != null : "El nombre de la promocion no puede ser null";
-        assert dia != null : "El dia no puede ser null";
-        Cerveceria.getInstance().agregarDiaPromocion(nombrePromocion, dia);
-    }
-
-    public void agregarDiaPromocion(DayOfWeek dia, int idPromocion) throws PromocionInexistenteException {
-        assert idPromocion >= 0 : "El id de la promocion debe ser mayor o igual a 0";
-        assert dia != null : "El dia no puede ser null";
-        Cerveceria.getInstance().agregarDiaPromocion(idPromocion, dia);
     }
 
     public void agregarMozo(String nya, int cantHijos, String fechaNacimiento) throws MozoRepetidoException {

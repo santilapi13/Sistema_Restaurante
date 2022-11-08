@@ -401,7 +401,7 @@ public class VPromoTemp extends JFrame implements IVistaLogin {
 	public FormaPago getFormaPago() {
 		String text = (String) this.comboBoxPago.getSelectedItem();
 		
-		FormaPago forma = null;
+		FormaPago forma = FormaPago.EFECTIVO;
 		
 		if (text.equalsIgnoreCase("EFECTIVO"))
 			forma = FormaPago.EFECTIVO;
@@ -436,6 +436,11 @@ public class VPromoTemp extends JFrame implements IVistaLogin {
 	@Override
 	public boolean isAcumulable() {
 		return this.rdbtnAcumulable.isSelected();
+	}
+
+	@Override
+	public void deseleccionarTodo() {
+
 	}
 
 	@Override

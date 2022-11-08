@@ -97,9 +97,9 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return nombre + '\t' +
-                "Costo: $" + pCosto + '\t' +
-                "Precio venta: $" + pVenta + '\t' +
-                "Stock: " + stock;
+        return nombre +
+                ", pCosto: $" + pCosto +
+                ", pVenta: $" + pVenta +
+                ", " + stock + " unidades";
     }
 }

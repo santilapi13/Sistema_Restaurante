@@ -31,14 +31,6 @@ public class PruebaEscritura {
             admin.agregarProducto("Gaseosa", 80, 100, 300);
 
 
-            admin.agregarPromocion("Gaseosa", false, true, 3, 90);
-            admin.agregarPromocion("Cerveza", true, false, 0, 0);
-            admin.agregarPromocion("Happy Hour", FormaPago.EFECTIVO, 0.2, true, 19, 21);
-
-            admin.agregarDiaPromocion(DayOfWeek.FRIDAY, "Happy Hour");
-            admin.agregarDiaPromocion(DayOfWeek.FRIDAY, 1);
-            admin.agregarDiaPromocion(DayOfWeek.FRIDAY, 2);
-
             admin.agregarMesa(1);
             admin.agregarMesa(6);
             admin.agregarMesa(4);

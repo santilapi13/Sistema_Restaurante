@@ -33,4 +33,5 @@ public class UtilCerveceria {
         cerveceria.setPromosTemporales(cerveceriaDTO.getPromosTemporales());
         cerveceria.setOperarioLogueado(cerveceriaDTO.getOperarioLogueado());
     }
+
 }

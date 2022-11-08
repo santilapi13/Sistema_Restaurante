@@ -425,6 +425,10 @@ public class VRegOp extends JFrame implements IVistaLogin {
 		return false;
 	}
 
+	@Override
+	public void deseleccionarTodo() {
+
+	}
 
 
 	@Override

@@ -53,6 +53,11 @@ public class ControladorLogin implements ActionListener, Observer {
 			Cerveceria.getInstance().loguear(user,pass,tipo);
 		}
 
+		try {
+			Cerveceria.getInstance().persistirCerveceria();
+		} catch (IOException ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 
 	@Override

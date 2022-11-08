@@ -412,6 +412,11 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 	}
 
 	@Override
+	public void deseleccionarTodo() {
+
+	}
+
+	@Override
 	public void ActualizarVentas(ArrayList<Venta> ventas) {
 		// TODO Auto-generated method stub
 		

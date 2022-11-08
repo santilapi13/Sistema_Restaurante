@@ -392,6 +392,11 @@ public class VMozo extends JFrame implements IVistaLogin {
 		return false;
 	}
 
+	@Override
+	public void deseleccionarTodo() {
+
+	}
+
 
 	@Override
 	public void ActualizarVentas(ArrayList<Venta> ventas) {

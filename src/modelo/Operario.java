@@ -174,8 +174,8 @@ public class Operario implements Serializable {
 
    @Override
    public String toString() {
-      return "Operario " + nya + '\n' +
-              ", username: '" + username + '\n' +
-              ", activo :" + activo;
+      return nya +
+              " (" + username + ')' +
+              ", " + (activo ? "activo" : "inactivo");
    }
 }

@@ -97,6 +97,7 @@ public interface IVistaLogin {
 	public double getPorcentaje();
 	
 	public boolean isAcumulable();
-	
+
+	public void deseleccionarTodo();
 	
 }

@@ -117,10 +117,9 @@ public class Mozo implements Serializable {
     @Override
     public String toString() {
         return nya +
-                "\t Fecha de nacimiento=" + fechaNacimiento +
-                "\t Hijos: " + cantHijos +
-                "\t Mesas: \n" + mesas +
-                "\t Ventas: \n" + ventas +
-                "\t Estado: " + estado;
+                " (" + fechaNacimiento + ')' +
+                ", " + cantHijos + " hijos" +
+                ", mesas: \n" + mesas + "\n" +
+                ", " + estado;
     }
 }

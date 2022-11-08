@@ -79,8 +79,8 @@ public class Comanda implements Serializable {
 
     @Override
     public String toString() {
-        return fecha +
-                "\t mesa " + mesa +
-                "\t Lista de productos: \n" + pedidos;
+        return fecha.getDayOfMonth() + "-" + fecha.getMonthValue() + "-" + fecha.getYear() + " " + fecha.getHour() + ":" + fecha.getMinute() +
+                ((mesa.getNroMesa() == 0) ? " , Barra" : (" , Mesa N° " + mesa.getNroMesa())) +
+                ":\n" + pedidos;
     }
 }

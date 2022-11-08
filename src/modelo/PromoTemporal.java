@@ -1,7 +1,9 @@
 package modelo;
 
 import java.sql.Time;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 /**
  * Clase que representa una promoción temporal.<br>
@@ -25,8 +27,10 @@ public class PromoTemporal extends Promocion {
      * @param esAcumulable : Indica si la promoción es acumulable con otras.
      * @param horaInicio : La hora de inicio de la promoción.
      * @param horaFin : La hora de fin de la promoción.
+     * @param diasPromo : Los dias de la semana en los que se aplica la promoción.
      */
-    public PromoTemporal(String nombre, FormaPago formaPago, double porcentajeDesc, boolean esAcumulable, int horaInicio, int horaFin) {
+    public PromoTemporal(String nombre, FormaPago formaPago, double porcentajeDesc, boolean esAcumulable, int horaInicio, int horaFin, ArrayList<DayOfWeek> diasPromo) {
+        super(diasPromo);
         assert nombre != null : "El nombre no puede ser null";
         assert formaPago != null : "La forma de pago no puede ser null";
         assert porcentajeDesc > 0 && porcentajeDesc < 1: "El porcentaje de descuento debe ser un valor valido";
@@ -86,5 +90,15 @@ public class PromoTemporal extends Promocion {
 
     public void setHoraFin(int horaFin) {
         this.horaFin = horaFin;
+    }
+
+    @Override
+    public String toString() {
+        return nombre +
+                ", " + formaPago +
+                ", " + porcentajeDesc*100 + "%" +
+                ", " + (esAcumulable ? "acumulable" : "no acumulable") +
+                ", desde " + horaInicio + " hs hasta " + horaFin + " hs" +
+                ", dias: " + getDiasDePromo();
     }
 }
