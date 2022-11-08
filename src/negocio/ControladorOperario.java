@@ -80,6 +80,18 @@ public class ControladorOperario implements ActionListener {
 			this.vista.cerrarse();
 			ControladorComanda.getInstance().setVista(new VComanda(), nromesa);
 		}
+		else if ((comando.equalsIgnoreCase("CERRAR MESA")  && !this.vista.getIsMesaEmpty()))
+		{
+			int nromesa = this.vista.getMesaSeleccionada().getNroMesa();
+			FormaPago forma = this.vista.getFormaPago();
+			
+			Cerveceria.getInstance().getOperarioLogueado().cerrarMesa(nromesa, forma);
+			
+			this.vista.ActualizarMozos(Cerveceria.getInstance().getMozos());
+			this.vista.ActualizarMesas(Cerveceria.getInstance().getMesas());
+			this.vista.ActualizarComandas(Cerveceria.getInstance().getComandasAbiertas());
+			this.vista.ActualizarVentas(Cerveceria.getInstance().getVentas());
+		}
 		
 		else if (comando.equalsIgnoreCase("SALIR")) {
 			this.vista.cerrarse();
