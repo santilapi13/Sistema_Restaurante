@@ -12,6 +12,8 @@ import excepciones.MozoNoDisponibleException;
 import modelo.*;
 import vista.*;
 
+import javax.swing.*;
+
 public class ControladorOperario implements ActionListener {
 
     private IVistaLogin vista = null;                    //si hacemos interfaz de user cambiar
@@ -48,10 +50,17 @@ public class ControladorOperario implements ActionListener {
                 String passActual = this.vista.getPasswordActual();
                 String pass = this.vista.getPassword();
 
-                Cerveceria.getInstance().getOperarioLogueado().cambiarContrasena(pass, passActual);
-
-                this.vista.cerrarse();
-                ControladorLogin.getInstance().setVista(new VLogin());
+                if (!passActual.equals(Cerveceria.getInstance().getOperarioLogueado().getPassword()))
+                    JOptionPane.showMessageDialog(null, "La contrasena actual no es correcta.");
+                else if (passActual.equals(pass))
+                    JOptionPane.showMessageDialog(null, "La nueva contrasena no puede ser igual a la anterior.");
+                else if (pass.length() < 5)
+                    JOptionPane.showMessageDialog(null, "La nueva contrasena debe tener al menos 5 caracteres.");
+                else {
+                    Cerveceria.getInstance().getOperarioLogueado().cambiarContrasena(pass, passActual);
+                    this.vista.cerrarse();
+                    ControladorLogin.getInstance().setVista(new VLogin());
+                }
             } else if (comando.equalsIgnoreCase("APLICAR") && !this.vista.getIsMozoEmpty()) {
                 EstadoMozo estado = this.vista.getEstadoMozo();
                 String nya = this.vista.getMozoSeleccionado().getNya();
@@ -84,7 +93,6 @@ public class ControladorOperario implements ActionListener {
                 
             } else if ((comando.equalsIgnoreCase("Estadistica Mozo") && !this.vista.getIsMozoEmpty())) {
             	Mozo mozo = this.vista.getMozoSeleccionado();
-            	System.out.println("sssssss");
             	this.vista.ActualizarVentas(mozo.getVentas());
             	
             	String s = mozo.getNya() + "Cantidad de Ventas: "+ mozo.cantVentas()+ "  Total ventas:  " + mozo.totalVentas() + " Promedio ventas: " + mozo.promedioVentas();

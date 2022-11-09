@@ -89,10 +89,14 @@ public class ControladorModificaciones implements ActionListener {
                 }
                 else if (this.mozo != null) {    // MODIFICACION DE MOZO
                     int cantHijos = this.vista.getHijos();
-                    Cerveceria.getInstance().getAdmin().modificarMozo(mozo, cantHijos);
-                    this.vista.cerrarse();
-                    ControladorAdmin.getInstance().setVista(new VAdmin());
-                    this.mozo = null;
+                    if (cantHijos < 0)
+                        JOptionPane.showMessageDialog(null, "La cantidad de hijos no puede ser negativa.");
+                    else {
+                        Cerveceria.getInstance().getAdmin().modificarMozo(mozo, cantHijos);
+                        this.vista.cerrarse();
+                        ControladorAdmin.getInstance().setVista(new VAdmin());
+                        this.mozo = null;
+                    }
                 }
 
             }
