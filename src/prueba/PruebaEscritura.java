@@ -21,11 +21,11 @@ public class PruebaEscritura {
             for (int i = 0; i < 6; i++) {
                 admin.agregarMozo("Mozo " + i, 0, "01/01/1990");
             }
-            op1.setEstado("Mozo 1", EstadoMozo.FRANCO);
-            op1.setEstado("Mozo 2", EstadoMozo.FRANCO);
-            op1.setEstado("Mozo 3", EstadoMozo.ACTIVO);
-            op1.setEstado("Mozo 4", EstadoMozo.ACTIVO);
-            op1.setEstado("Mozo 5", EstadoMozo.ACTIVO);
+            op1.setEstado(Cerveceria.getInstance().getMozos().get(0), EstadoMozo.FRANCO);
+            op1.setEstado(Cerveceria.getInstance().getMozos().get(1), EstadoMozo.FRANCO);
+            op1.setEstado(Cerveceria.getInstance().getMozos().get(2), EstadoMozo.ACTIVO);
+            op1.setEstado(Cerveceria.getInstance().getMozos().get(3), EstadoMozo.ACTIVO);
+            op1.setEstado(Cerveceria.getInstance().getMozos().get(4), EstadoMozo.ACTIVO);
 
             admin.agregarProducto("Cerveza", 100, 125, 300);
             admin.agregarProducto("Gaseosa", 80, 100, 300);
@@ -35,9 +35,9 @@ public class PruebaEscritura {
             admin.agregarMesa(6);
             admin.agregarMesa(4);
 
-            op1.asignarMesa("Mozo 3", 1);
-            op1.asignarMesa("Mozo 3", 2);
-            op1.asignarMesa("Mozo 4", 0);
+            op1.asignarMesa(Cerveceria.getInstance().getMozos().get(3), Cerveceria.getInstance().getMesas().get(1));
+            op1.asignarMesa(Cerveceria.getInstance().getMozos().get(3), Cerveceria.getInstance().getMesas().get(2));
+            op1.asignarMesa(Cerveceria.getInstance().getMozos().get(4), Cerveceria.getInstance().getMesas().get(0));
 
             op1.tomarComanda(1, "Cerveza", 2);
             op1.tomarComanda(1, "Gaseosa", 4);

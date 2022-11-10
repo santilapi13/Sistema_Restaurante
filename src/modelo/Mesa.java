@@ -73,7 +73,7 @@ public class Mesa implements Serializable {
 
     @Override
     public String toString() {
-        return ((nroMesa == 0) ? "Barra" : ("Mesa N° " + nroMesa)) +
+        return ((nroMesa == 0) ? "Barra" : ("Mesa Nro " + nroMesa)) +
                 ", capacidad: " + cantComensales +
                 ", " + (asignada ? "asignada" : "no asignada") +
                 ", " + (libre ? "libre" : "ocupada");

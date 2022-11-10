@@ -282,11 +282,11 @@ public class ControladorAdmin implements ActionListener {
                     Cerveceria.getInstance().getAdmin().eliminarProducto(this.vista.getProdSeleccionado());
                     this.vista.ActualizarProductos(Cerveceria.getInstance().getCarta());
                 } else if (!this.vista.getIsMesaEmpty()) {
-                    int nroMesa = this.vista.getMesaSeleccionada().getNroMesa();
-                    if (nroMesa == 0)
+                    Mesa mesa = this.vista.getMesaSeleccionada();
+                    if (mesa.getNroMesa() == 0)
                         JOptionPane.showMessageDialog(null, "No se puede eliminar la barra, solo modificar su capacidad.");
                     else {
-                        Cerveceria.getInstance().eliminarMesa(nroMesa);
+                        Cerveceria.getInstance().eliminarMesa(mesa);
                         this.vista.ActualizarMesas(Cerveceria.getInstance().getMesas());
                     }
                 } else if (!this.vista.getIsMozoEmpty()) {

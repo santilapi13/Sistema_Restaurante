@@ -71,32 +71,32 @@ public class Operario implements Serializable {
     * <b>Pre:</b> El parametro nya debe ser distinto de null y el parametro estado debe ser ACTIVO, FRANCO o AUSENTE.<br>
     * <b>Post:</b> El mozo pasado por parametro debera tener el estado pasado por parametro.<br>
     *
-    * @param nya : El nombre del mozo al cual se quiere cambiar su estado.
+    * @param mozo : El mozo al cual se quiere cambiar su estado.
     * @param estado : El estado que se quiere asignar al mozo.
     * @throws MozoInexistenteException : Se lanza si el mozo pasado por parametro no existe.
     */
-   public void setEstado(String nya, EstadoMozo estado) throws MozoInexistenteException {
+   public void setEstado(Mozo mozo, EstadoMozo estado) throws MozoInexistenteException, EstadoInvalidoException {
       assert nya != null : "El nombre del mozo no puede ser nulo.";
       assert estado == EstadoMozo.ACTIVO || estado == EstadoMozo.FRANCO || estado == EstadoMozo.AUSENTE: "El estado no puede ser distinto de ACTIVO, FRANCO y AUSENTE";
-      Cerveceria.getInstance().setEstado(nya, estado);
+      Cerveceria.getInstance().setEstado(mozo, estado);
       this.invariante();
    }
 
    /**
     * Asigna una mesa pasada por parametro al mozo pasado por parámetro .<br>
-    * <b>Pre:</b> El parametro nya debe ser distinto de null y el nro de mesa debe ser mayor o igual que 0.<br>
+    * <b>Pre:</b> Los parametros nya y mesa deben ser distintos de null.<br>
     * <b>Post:</b> Se agregara una mesa a la lista de mesas del mozo y se marcara la mesa como asignada.<br>
     *
-    * @param nya : El mozo al cual se quiere agregar una mesa.
-    * @param nroMesa : Numero de mesa a asignarle.
+    * @param mozo : El mozo al cual se quiere agregar una mesa.
+    * @param mesa : Mesa a asignarle.
     * @throws MozoInexistenteException : Se lanza si el mozo pasado por parametro no existe.
     * @throws MesaInexistenteException : Se lanza si la mesa pasada por parametro no existe.
     * @throws MesaNoDisponibleException : Se lanza si la mesa pasada por parametro no esta disponible.
     */
-   public void asignarMesa(String nya, int nroMesa) throws MozoInexistenteException, MozoNoDisponibleException, MesaInexistenteException, MesaNoDisponibleException {
-      assert nya != null : "El nombre del mozo no puede ser nulo.";
-      assert nroMesa >= 0 : "El numero de mesa no puede ser menor a 0.";
-      Cerveceria.getInstance().asignarMesa(nya, nroMesa);
+   public void asignarMesa(Mozo mozo, Mesa mesa) throws MozoInexistenteException, MozoNoDisponibleException, MesaInexistenteException, MesaNoDisponibleException {
+      assert mozo != null : "El nombre del mozo no puede ser nulo.";
+      assert mesa != null : "El numero de mesa no puede ser menor a 0.";
+      Cerveceria.getInstance().asignarMesa(mozo, mesa);
       this.invariante();
    }
 

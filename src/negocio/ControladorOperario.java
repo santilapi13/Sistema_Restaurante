@@ -63,16 +63,11 @@ public class ControladorOperario implements ActionListener {
                 }
             } else if (comando.equalsIgnoreCase("APLICAR") && !this.vista.getIsMozoEmpty()) {
                 EstadoMozo estado = this.vista.getEstadoMozo();
-                String nya = this.vista.getMozoSeleccionado().getNya();
-             
-                
-                Cerveceria.getInstance().getOperarioLogueado().setEstado(nya, estado);
+                Mozo mozo = this.vista.getMozoSeleccionado();
+                Cerveceria.getInstance().getOperarioLogueado().setEstado(mozo, estado);
                 this.vista.ActualizarMozos(Cerveceria.getInstance().getMozos());
             } else if (comando.equalsIgnoreCase("ASIGNAR") && !this.vista.getIsMozoEmpty() && !this.vista.getIsMesaEmpty()) {
-                int nromesa = this.vista.getMesaSeleccionada().getNroMesa();
-                String nya = this.vista.getMozoSeleccionado().getNya();
-
-                Cerveceria.getInstance().getOperarioLogueado().asignarMesa(nya, nromesa);
+                Cerveceria.getInstance().getOperarioLogueado().asignarMesa(this.vista.getMozoSeleccionado(), this.vista.getMesaSeleccionada());
                 this.vista.ActualizarMozos(Cerveceria.getInstance().getMozos());
                 this.vista.ActualizarMesas(Cerveceria.getInstance().getMesas());
             } else if ((comando.equalsIgnoreCase("TOMAR COMANDA") && !this.vista.getIsMesaEmpty())) {
@@ -106,23 +101,8 @@ public class ControladorOperario implements ActionListener {
 
 			Cerveceria.getInstance().persistirCerveceria();
 
-        } catch (ContrasenaIncorrectaException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        } catch (MozoInexistenteException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        } catch (MozoNoDisponibleException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        } catch (MesaInexistenteException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        } catch (MesaNoDisponibleException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        } catch (IOException ex) {
-			throw new RuntimeException(ex);
+        } catch (Exception e1) {
+            JOptionPane.showMessageDialog(null, e1.getMessage());
 		}
 
 

@@ -59,51 +59,44 @@ public class Cerveceria extends Observable {
      * <b>Pre:</b> El parametro mozo debe ser distinto de null, y el parametro estado debe ser ACTIVO, FRANCO o AUSENTE.<br>
      * <b>Post:</b> El mozo pasado por parametro debera tener el estado pasado por parametro.<br>
      *
-     * @param nya : El nombre del mozo al cual se quiere cambiar su estado.
+     * @param mozo : El mozo al cual se quiere cambiar su estado.
      * @param estado : El estado que se quiere asignar al mozo.
      */
-    public void setEstado(String nya, EstadoMozo estado) throws MozoInexistenteException {
-       int i = 0;
-       while (i < mozos.size() && !mozos.get(i).getNya().equalsIgnoreCase(nya))
-           i++;
+    public void setEstado(Mozo mozo, EstadoMozo estado) throws MozoInexistenteException, EstadoInvalidoException {
+       if (mozos.contains(mozo)) {
+           if (estado != EstadoMozo.ACTIVO && !mozo.getMesas().isEmpty())
+               throw new EstadoInvalidoException(mozo.getNya(), estado);
+           else
+               mozos.get(mozos.indexOf(mozo)).setEstado(estado);
+       } else
+           throw new MozoInexistenteException(mozo.getNya());
 
-       if (i < mozos.size() && mozos.get(i).getNya().equalsIgnoreCase(nya))
-           mozos.get(i).setEstado(estado);
-       else
-           throw new MozoInexistenteException(nya);
         this.invariante();
     }
 
     /**
      * Asigna una mesa pasada por parametro al mozo pasado por parámetro .<br>
-     * <b>Pre:</b> El parametro nya debe ser distinto de null y el nro de mesa debe ser mayor o igual que 0.<br>
+     * <b>Pre:</b> Los parametros nya y mesa deben ser distintos de null.<br>
      * <b>Post:</b> Se agregara una mesa a la lista de mesas del mozo y se marcara la mesa como asignada.<br>
      *
-     * @param nya : El mozo al cual se quiere agregar una mesa.
-     * @param nroMesa : Numero de mesa a asignarle.
+     * @param mozo : El mozo al cual se quiere agregar una mesa.
+     * @param mesa : Mesa a asignarle.
      */
-    public void asignarMesa(String nya, int nroMesa) throws MozoNoDisponibleException, MozoInexistenteException, MesaInexistenteException, MesaNoDisponibleException {
-        int i = 0;
-        while (i < mozos.size() && !mozos.get(i).getNya().equalsIgnoreCase(nya))
-            i++;
+    public void asignarMesa(Mozo mozo, Mesa mesa) throws MozoNoDisponibleException, MozoInexistenteException, MesaInexistenteException, MesaNoDisponibleException {
 
-        if (i >= mozos.size() && !mozos.get(i).getNya().equalsIgnoreCase(nya))
-            throw new MozoInexistenteException(nya);
-        Mozo mozo = mozos.get(i);
+        if (!mozos.contains(mozo))
+            throw new MozoInexistenteException(mozo.getNya());
 
-        i = 0;
-        while (i < mesas.size() && mesas.get(i).getNroMesa() != nroMesa)
-            i++;
-        if (i >= mesas.size() && mesas.get(i).getNroMesa() != nroMesa)
-            throw new MesaInexistenteException(nroMesa);
-        Mesa mesa = mesas.get(i);
+        if (!mesas.contains(mesa))
+            throw new MesaInexistenteException(mesa.getNroMesa());
 
         if (mozo.getEstado() != EstadoMozo.ACTIVO)
-            throw new MozoNoDisponibleException(nya);
-        if (mesa.isAsignada())
-            throw new MesaNoDisponibleException("La mesa " + nroMesa + " ya fue asignada a otro mozo.");
+            throw new MozoNoDisponibleException(mozo.getNya());
 
-        mozos.get(i).getMesas().add(mesas.get(nroMesa));
+        if (mesa.isAsignada())
+            throw new MesaNoDisponibleException("La mesa " + mesa.getNroMesa() + " ya fue asignada a otro mozo.");
+
+        mozos.get(mozos.indexOf(mozo)).getMesas().add(mesa);
         mesa.setAsignada(true);
 
         this.invariante();
@@ -496,14 +489,14 @@ public class Cerveceria extends Observable {
         mesas.add(new Mesa(cantComensales));
     }
 
-    public void eliminarMesa(int nroMesa) throws MesaInexistenteException {
-        int i = 0;
-        while (i < mesas.size() && mesas.get(i).getNroMesa() != nroMesa)
-            i++;
-        if (i < mesas.size() && mesas.get(i).getNroMesa() == nroMesa)
-            mesas.remove(i);
+    public void eliminarMesa(Mesa mesa) throws MesaInexistenteException, MesaAsignadaException {
+        if (mesas.contains(mesa))
+            if (mesa.isAsignada())
+                throw new MesaAsignadaException(mesa.getNroMesa());
+            else
+                mesas.remove(mesa);
         else
-            throw new MesaInexistenteException(nroMesa);
+            throw new MesaInexistenteException(mesa.getNroMesa());
     }
 
     public void modificarMesa(int nroMesa, int cantComensales) throws MesaInexistenteException {

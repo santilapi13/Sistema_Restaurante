@@ -194,9 +194,9 @@ public class Admin extends Operario implements Serializable {
         Cerveceria.getInstance().agregarMesa(cantComensales);
     }
 
-    public void eliminarMesa(int nroMesa) throws MesaInexistenteException {
-        assert nroMesa >= 0 : "El numero de mesa debe ser mayor o igual a 0";
-        Cerveceria.getInstance().eliminarMesa(nroMesa);
+    public void eliminarMesa(Mesa mesa) throws MesaInexistenteException, MesaAsignadaException {
+        assert mesa != null : "La mesa no puede ser null";
+        Cerveceria.getInstance().eliminarMesa(mesa);
     }
 
     public void modificarMesa(int nroMesa, int cantComensales) throws MesaInexistenteException {
