@@ -105,6 +105,8 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 		this.lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 20));
 		this.lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		this.contentPane.add(this.lblNewLabel_2, BorderLayout.NORTH);
+		
+		this.btnIngresar.setEnabled(false);
 		this.setVisible(true);
 	}
 
@@ -178,7 +180,7 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		this.btnIngresar.setEnabled(validar());
 		
 	}
 
@@ -444,6 +446,15 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 	public void estadisticas(String s) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private boolean validar() {
+		boolean resp=false;
+		
+		resp = this.textPassword.getText() != null && !this.textPassword.getText().isEmpty() 
+			   && this.textUsername.getText() != null && !this.textUsername.getText().isEmpty();
+		
+		return resp;
 	}
 
 }

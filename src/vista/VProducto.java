@@ -26,6 +26,8 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 
@@ -35,8 +37,9 @@ import javax.swing.JSpinner;
 import javax.swing.JButton;
 import javax.swing.SpinnerNumberModel;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 
-public class VProducto extends JFrame implements IVistaLogin{
+public class VProducto extends JFrame implements IVistaLogin, KeyListener{
 
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -50,7 +53,7 @@ public class VProducto extends JFrame implements IVistaLogin{
 	private JTextField textVenta;
 	private JLabel lblNewLabel_4;
 	private JTextField textFieldStock;
-
+	private ActionListener actionListener;
 	/**
 	 * Create the frame.
 	 */
@@ -106,15 +109,22 @@ public class VProducto extends JFrame implements IVistaLogin{
 		textFieldStock.setColumns(10);
 		
 		this.btnAPLICAR = new JButton("ACEPTAR");
+		
 		this.btnAPLICAR.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		this.panel.add(this.btnAPLICAR);
 		
+		this.btnAPLICAR.setEnabled(false);
 		this.setVisible(true);
+		this.textNombre.addKeyListener(this);
+		this.textVenta.addKeyListener(this);
+		this.textCosto.addKeyListener(this);
+		this.textFieldStock.addKeyListener(this);
 	}
 
 	@Override
 	public void setActionListener(ActionListener actionListener) {
 		this.btnAPLICAR.addActionListener(actionListener);
+		this.actionListener = actionListener;
 		
 	}
 
@@ -401,6 +411,36 @@ public class VProducto extends JFrame implements IVistaLogin{
 	public void estadisticas(String s) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		this.btnAPLICAR.setEnabled(validar());
+		
+	}
+	
+	private boolean validar() {
+		boolean resp=false;
+		
+		resp = this.textNombre.getText() != null && !this.textNombre.getText().isEmpty() 
+			   && this.textCosto.getText() != null && !this.textCosto.getText().isEmpty()
+		       && this.textVenta.getText() != null && !this.textVenta.getText().isEmpty()
+		       && this.textFieldStock.getText() != null && !this.textFieldStock.getText().isEmpty();
+		      
+		
+		return resp;
 	}
 
 
