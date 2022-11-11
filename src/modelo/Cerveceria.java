@@ -530,12 +530,14 @@ public class Cerveceria extends Observable {
 
 			while (i < this.operarios.size() && !this.operarios.get(i).getUsername().equals(username))
 				i++;
-			if (i < this.operarios.size() && this.operarios.get(i).getPassword().equals(password))
+			if (i < this.operarios.size() && this.operarios.get(i).getPassword().equals(password) && this.operarios.get(i).isActivo())
 				mensaje = "OPERARIO";
+            else if (i < this.operarios.size() && this.operarios.get(i).getPassword().equals(password) && !this.operarios.get(i).isActivo())
+                mensaje = "INACTIVO";
 
 		} 
 		
-		if (mensaje != "INCORRECTO") {
+		if (mensaje != "INCORRECTO" || mensaje != "INACTIVO") {
             if (mensaje == "OPERARIO")
 			    setOperarioLogueado(this.operarios.get(i));
             else

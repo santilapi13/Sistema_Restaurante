@@ -79,5 +79,7 @@ public class ControladorLogin implements ActionListener, Observer {
 
 		} else if (arg.toString().contentEquals("INCORRECTO"))
 			JOptionPane.showMessageDialog(null, "Usuario o contrasena incorrecta");
+		else if (arg.toString().contentEquals("INACTIVO"))
+			JOptionPane.showMessageDialog(null, "Operario inactivo, no puede loguearse");
 	}
 }
