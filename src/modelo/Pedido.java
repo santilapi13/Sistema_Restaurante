@@ -24,6 +24,7 @@ public class Pedido implements Serializable {
         assert cantidad > 0 : "La cantidad debe ser mayor a 0.";
         assert producto.getStock() >= cantidad : "El stock del producto debe ser mayor o igual a la cantidad.";
         this.producto = producto;
+        this.producto.setStock((this.producto.getStock())-cantidad);
         this.cantidad = cantidad;
         this.fecha = LocalDateTime.now();
     }

@@ -43,6 +43,7 @@ public class PruebaEscritura {
             op1.tomarComanda(1, "Gaseosa", 4);
 
             op1.cerrarMesa(1, FormaPago.EFECTIVO);
+            System.out.println(Cerveceria.getInstance().getCarta());
 
             System.out.println(Cerveceria.getInstance().getVentas().get(0).getTotal());
 
