@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import excepciones.MesaInexistenteException;
 import excepciones.ProductoInexistenteException;
 import modelo.Cerveceria;
@@ -43,10 +45,14 @@ public class ControladorComanda implements ActionListener {
                 int cantidad = this.vista.getCantMinima();
                 String nombreProd = this.vista.getProdSeleccionado().getNombre();
 
-
-                Cerveceria.getInstance().getOperarioLogueado().tomarComanda(nromesa, nombreProd, cantidad);
-                this.vista.ActualizarProductos(Cerveceria.getInstance().getCarta());
-                this.vista.ActualizarPedidos(Cerveceria.getInstance().getComandaDeMesa(nromesa));
+                if (cantidad <= this.vista.getProdSeleccionado().getStock())
+                {
+                 Cerveceria.getInstance().getOperarioLogueado().tomarComanda(nromesa, nombreProd, cantidad);
+                 this.vista.ActualizarProductos(Cerveceria.getInstance().getCarta());
+                 this.vista.ActualizarPedidos(Cerveceria.getInstance().getComandaDeMesa(nromesa));
+                 }
+                else
+                	JOptionPane.showMessageDialog(null, "La cantidad pedida no puede superar al stock del producto.");
 
             } else if (comando.equalsIgnoreCase("SALIR")) {
                 this.vista.cerrarse();
