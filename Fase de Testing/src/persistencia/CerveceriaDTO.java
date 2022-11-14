@@ -106,4 +106,5 @@ public class CerveceriaDTO implements Serializable {
     public void setPromosProducto(ArrayList<PromoProducto> promosProducto) {
         this.promosProducto = promosProducto;
     }
+
 }
