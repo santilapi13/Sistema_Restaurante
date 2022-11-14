@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -829,4 +830,13 @@ public class Cerveceria {
 	public double getSueldo(Mozo mozo) { // arreglar
 		return sueldo + mozo.cantHijos;
 	}
+	
+	public void despersistir() throws IOException, ClassNotFoundException {
+        IPersistencia<Serializable> persistencia = new PersistenciaBIN();
+        Cerveceria cerveceria = Cerveceria.getInstance();
+            persistencia.abrirInput("Cerveceria.bin");
+            CerveceriaDTO cdto = (CerveceriaDTO) persistencia.leer();
+            UtilPersistencia.CerveceriaDTOToCerveceria(cdto, cerveceria);
+            persistencia.cerrarInput();
+    }	
 }

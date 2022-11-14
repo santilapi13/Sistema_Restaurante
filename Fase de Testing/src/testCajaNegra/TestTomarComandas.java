@@ -202,5 +202,41 @@ public class TestTomarComandas { //No se chequea q la cantidad del prod este ok,
 		
 		
 	}
+	
+	@Test
+	public void TestTomarPedidoStockProductoDisminuye() {
+	
+		Cerveceria cerveceria = escenario.getCerveceria();
+		Mesa mesa = cerveceria.getMesas().get(0);
+		Producto prod1 = cerveceria.getProductos().get(0);
+		double stock =  cerveceria.getProductos().get(0).getStock();
+		Pedido pedido1 = new Pedido(prod1, 1); 
+		
+		
+		ArrayList<Pedido> pedidoInicialmesa = new ArrayList<Pedido>();
+		pedidoInicialmesa.add(pedido1);
+		
+		
+		try {
+			cerveceria.tomarComanda(mesa, pedidoInicialmesa); 
+	        
+		    if (cerveceria.getProductos().get(0).getStock() != stock -1)
+		    	Assert.fail("El stock no se actualiza correctamente");
+		    
+		    if ( !cerveceria.getComandasAbiertas().get(0).getListaProductos().contains(pedido1))
+		    	Assert.fail("Pedidos no se tomaron correctamente.");
+		    	
+		} catch (MesaInexistenteException e) {
+			Assert.fail("No deberia largar excepcion");
+		} catch (MesaNoDisponibleException e) {
+			Assert.fail("No deberia largar excepcion");
+			e.printStackTrace();
+		} catch (ProductosInvalidosException e) {
+			Assert.fail("No deberia largar excepcion");
+			e.printStackTrace();
+		}
+		
+		
+	}
 
 }

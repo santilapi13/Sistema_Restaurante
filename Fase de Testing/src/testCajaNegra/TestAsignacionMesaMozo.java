@@ -38,6 +38,8 @@ public class TestAsignacionMesaMozo {
 	 try {
 	
 		 Cerveceria cerveceria = escenario.getCerveceria();
+		 System.out.println(cerveceria.getMozos());
+		 System.out.println(cerveceria.getMesas());
 		 Mozo mozo = cerveceria.getMozos().get(0);
 		 Mesa mesa = cerveceria.getMesas().get(0);
 		 

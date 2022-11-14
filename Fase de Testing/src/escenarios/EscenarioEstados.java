@@ -37,13 +37,22 @@ public EscenarioEstados() {
 		Date fecha1 = new Date(2000, 8, 17);
 		Mozo mozo1 = new Mozo("Santi Lapi", fecha1, 2);
 		Mozo mozo2 = new Mozo("Wencho Avalos", fecha1, 1);
+		Mozo mozo3 = new Mozo("Guillermo", fecha1, 1);
 		mozo = new Mozo("Cristiano ronaldo", fecha1, 3);
 		cerveceria.addMozo(mozo1);
 		cerveceria.addMozo(mozo2);
+		cerveceria.addMozo(mozo3);
 		cerveceria.setEstado(mozo2, Estado.FRANCO);
 		
 		
-	} catch ( MozoRepetidoException | MozoInexistenteException | UsuarioRepetidoException e) {
+		Mesa mesa2 = new Mesa(6, 1);
+		Mesa mesa1 = new Mesa(4, 0);
+		
+		cerveceria.addMesa(mesa1);
+		cerveceria.addMesa(mesa2);
+		
+		
+	} catch ( MozoRepetidoException | MozoInexistenteException | UsuarioRepetidoException | MesaRepetidaException e) {
 		e.printStackTrace();
 	}
 	

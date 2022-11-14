@@ -26,10 +26,18 @@ import modelo.PromoTemporal;
 public class EscenarioCerrarPedidos {
 
 	Cerveceria cerveceria = Cerveceria.getInstance();
-	Producto pancho =  new Producto("Pancho", 300, 2000, 40);
-	Mesa mesa = new Mesa(9,3);
+	double totalMesa1;
+	double totalMesa2;
 
 		
+	public double getTotalMesa1() {
+		return totalMesa1;
+	}
+
+	public double getTotalMesa2() {
+		return totalMesa2;
+	}
+
 	public EscenarioCerrarPedidos() {
 		 //add operaro, add mesa.
 		try {
@@ -64,26 +72,32 @@ public class EscenarioCerrarPedidos {
 			diasPromo.add("VIERNES");	
 			
 			//PROMO Producto
-			PromoProducto promoHamburguesa = new PromoProducto(diasPromo, hamburguesa, false, true, 3, 180);
+			PromoProducto promoHamburguesa = new PromoProducto(diasPromo, hamburguesa, true, false, 3, 180);
 			cerveceria.addPromoProd(promoHamburguesa);
 
-			// PROMO TEMPORAL
-			PromoTemporal promoViernes = new PromoTemporal(diasPromo, "Lunes y Viernes descuento", "TARJETA", 50, true);
-			cerveceria.addPromoTemp(promoViernes);
+			
 			
 			//asignacion mesa, lista para pedir
 			cerveceria.asignarMesa(mozo1, mesa1);  //mesa 1 asignada
-			
-			Producto prod1 = cerveceria.getProductos().get(0);
-			Producto prod2 = cerveceria.getProductos().get(1);
-			Pedido pedido1 = new Pedido(prod1, 1); 
-			Pedido pedido2 = new Pedido(prod2, 2);
+			cerveceria.asignarMesa(mozo2, mesa2);
 			
 			
-			ArrayList<Pedido> pedidoInicialmesa = new ArrayList<Pedido>();
+			Pedido pedido1 = new Pedido(hamburguesa, 1); 
+			Pedido pedido2 = new Pedido(cerveza, 2);
+			Pedido pedido3 = new Pedido(hamburguesa, 5);
+			
+			totalMesa1 = hamburguesa.getpVenta() + cerveza.getpVenta()*2; 
+			totalMesa2 = hamburguesa.getpVenta() *5; 
+			
+			ArrayList<Pedido> pedidoInicialmesa = new ArrayList<Pedido>();  //pedido no apto promo
 			pedidoInicialmesa.add(pedido1);
 			pedidoInicialmesa.add(pedido2);
 			cerveceria.tomarComanda(mesa1, pedidoInicialmesa);
+			
+			pedidoInicialmesa.clear();
+			pedidoInicialmesa.add(pedido3);  //pedido apto promo
+			cerveceria.tomarComanda(mesa2, pedidoInicialmesa);
+			
 			
 		} catch (UsuarioRepetidoException | MesaRepetidaException | MozoRepetidoException | ProductoRepetidoException | PromoRepetidaException | ProductoInexistenteException | MozoNoDisponibleException | MozoInexistenteException | MesaNoDisponibleException | MesaInexistenteException | ProductosInvalidosException e) {
 			e.printStackTrace();
@@ -96,13 +110,6 @@ public class EscenarioCerrarPedidos {
 		return cerveceria;
 	}
 
-	public Producto getPancho() {
-		return pancho;
-	}
-
-	public Mesa getMesa() {
-		return mesa;
-	}	
 	
 	
 	
