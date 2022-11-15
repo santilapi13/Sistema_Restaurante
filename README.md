@@ -1,12 +1,13 @@
 # taller-de-programacion-1
-Integrantes del subgrupo:
+Fase de Programación y testeo de Fase de Testing llevadas a cabo por:
 
 Wenceslao Ávalos
 
 Santiago Nicolás Lapiana
 
 
-Subgrupo cuyo código se testea:
+
+Código testeado brindado por:
 
 Lautaro Luna
 
