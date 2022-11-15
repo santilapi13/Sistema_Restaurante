@@ -116,10 +116,10 @@ public class GuiTestEnabledDisabledVOperario {
         robot.delay(2000);
             
               
-            Assert.assertFalse("El boton de Estadisticas deberia hablitado", !botonEstadistica.isEnabled());
-            Assert.assertFalse("El boton de Estadisticas deberia hablitado", !botonActivo.isEnabled());
-            Assert.assertFalse("El boton de Estadisticas deberia hablitado", !botonFranco.isEnabled());
-            Assert.assertFalse("El boton de Estadisticas deberia hablitado", !botonAusente.isEnabled());
+            Assert.assertFalse("El boton deberia hablitado", !botonEstadistica.isEnabled());
+            Assert.assertFalse("El boton deberia hablitado", !botonActivo.isEnabled());
+            Assert.assertFalse("El boton deberia hablitado", !botonFranco.isEnabled());
+            Assert.assertFalse("El boton deberia hablitado", !botonAusente.isEnabled());
         
             
         }

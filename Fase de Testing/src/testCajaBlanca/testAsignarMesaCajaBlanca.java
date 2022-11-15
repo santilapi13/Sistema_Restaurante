@@ -33,7 +33,7 @@ public class testAsignarMesaCajaBlanca {
 	public void tearDown() throws Exception {
 	}
 
-	//@Test
+	@Test
 	public void camino1() {  //mozo inexistente
 		
 		 
@@ -63,7 +63,7 @@ public class testAsignarMesaCajaBlanca {
 	}
 	
 	
-	//@Test
+	@Test
 	public void camino2() {  //mozo no disponible
 		
 		 Cerveceria.setInstance();
@@ -101,7 +101,7 @@ public class testAsignarMesaCajaBlanca {
 	}
 	
 	
-	//@Test
+	@Test
 	public void camino3() {  //mozo no disponible
 		
 		Cerveceria.setInstance();
@@ -133,7 +133,7 @@ public class testAsignarMesaCajaBlanca {
 		 	
 	}
 	
-	//@Test
+	@Test
 	public void camino4() {  //mozo no disponible
 		
 		 Cerveceria.setInstance();
@@ -201,7 +201,7 @@ public class testAsignarMesaCajaBlanca {
 		 	
 	}
 	
-	//@Test
+	@Test
 	public void camino6() {  //mozo no disponible
 		
 		 Cerveceria.setInstance();
