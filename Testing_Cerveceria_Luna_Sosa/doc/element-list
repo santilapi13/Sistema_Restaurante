@@ -1,0 +1,13 @@
+controladores
+escenarios
+excepciones
+modelo
+negocio
+persistencia
+presentacion
+prueba
+testCajaBlanca
+testCajaNegra
+testGUI
+testIntegracion
+testPersistencia
