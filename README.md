@@ -1,11 +1,12 @@
 # taller-de-programacion-1
-Integrantes:
+Integrantes del subgrupo:
 
 Wenceslao Ávalos
 
 Santiago Nicolás Lapiana
 
-Subgrupo a testear:
+
+Subgrupo cuyo código se testea:
 
 Lautaro Luna
 
