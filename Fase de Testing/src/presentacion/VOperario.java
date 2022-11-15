@@ -252,6 +252,23 @@ public class VOperario extends JFrame implements IVistaOperario, MouseListener {
 		this.listVentas.setModel(modeloListaVenta);
 		this.scrollPane_3.setViewportView(this.listVentas);
 		this.setVisible(true);
+		
+		this.listMozos.setName("ListaMozos");
+		this.btnActivo.setName("Activo");
+		this.btnFranco.setName("Franco");
+		this.btnEstadisticas.setName("Estadisticas");
+		this.btnAusente.setName("Ausente");
+		this.scrollPane.setName("ScrollMozo");
+		
+		this.listMesas.setName("ListaMesas");
+		this.btnAsignar.setName("Asignar");
+		this.btnCerrar.setName("Cerrar");
+		this.btnPedido.setName("Pedido");
+		this.scrollPane_1.setName("ScrollMesa");
+		
+		this.btnSalir.setName("Salir");
+		
+		
 	}
 
 	private void validar() {

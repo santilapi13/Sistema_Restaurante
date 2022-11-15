@@ -25,7 +25,7 @@ public class GuiTestConjuntoConDatosVLogin
 {
 	Robot robot;
     VLogin ventana;
-    ControladorDeTestVLogin controlador;
+    ControladorLogin controlador;
     FalsoOptionPane pane = new FalsoOptionPane();
 
     public GuiTestConjuntoConDatosVLogin()
@@ -41,11 +41,10 @@ public class GuiTestConjuntoConDatosVLogin
     @Before
     public void setUp() throws Exception
     {
-       robot.delay(TestUtils.getDelay());
-       robot.delay(TestUtils.getDelay());
-       robot.delay(TestUtils.getDelay());
+    	robot.delay(2000);
+       
        ventana =  new VLogin();
-       controlador = new ControladorDeTestVLogin(ventana);
+       controlador = new ControladorLogin(ventana);
        Sistema.getInstance().setOptionpane(pane);
        Operario op = new Operario("Juan Perez", "Juanpe", "Juanpe123");
        Cerveceria.getInstance().addOperario(op);
@@ -55,7 +54,6 @@ public class GuiTestConjuntoConDatosVLogin
     public void tearDown() throws Exception
     {
        this.controlador.getVista().cerrarse();
-       this.controlador.setVista();
        Cerveceria.setInstance();
         
     }
@@ -65,9 +63,9 @@ public class GuiTestConjuntoConDatosVLogin
     {
         robot.delay(TestUtils.getDelay());
         //obtengo las referencias a los componentes necesarios
-        JTextField contrasena = (JTextField) TestUtils.getComponentForName(controlador.getVista(), "textoContra");
-        JTextField nombre = (JTextField) TestUtils.getComponentForName(controlador.getVista(), "textUser");
-        JButton aceptarLog = (JButton) TestUtils.getComponentForName(controlador.getVista(), "botonIngresar");
+        JTextField contrasena = (JTextField) TestUtils.getComponentForName(ventana, "textoContra");
+        JTextField nombre = (JTextField) TestUtils.getComponentForName(ventana , "textUser");
+        JButton aceptarLog = (JButton) TestUtils.getComponentForName(ventana , "botonIngresar");
 
         //lleno los JTextField
         TestUtils.clickComponent(nombre, robot);
@@ -85,9 +83,9 @@ public class GuiTestConjuntoConDatosVLogin
     {
         robot.delay(TestUtils.getDelay());
         //obtengo las referencias a los componentes necesarios
-        JTextField contrasena = (JTextField) TestUtils.getComponentForName(controlador.getVista(), "textoContra");
-        JTextField nombre = (JTextField) TestUtils.getComponentForName(controlador.getVista(), "textUser");
-        JButton aceptarLog = (JButton) TestUtils.getComponentForName(controlador.getVista(), "botonIngresar");
+        JTextField contrasena = (JTextField) TestUtils.getComponentForName(ventana, "textoContra");
+        JTextField nombre = (JTextField) TestUtils.getComponentForName(ventana , "textUser");
+        JButton aceptarLog = (JButton) TestUtils.getComponentForName(ventana , "botonIngresar");
         
         //lleno los JTextField
         TestUtils.clickComponent(nombre, robot);
@@ -107,9 +105,9 @@ public class GuiTestConjuntoConDatosVLogin
     {
         robot.delay(TestUtils.getDelay());
         //obtengo las referencias a los componentes necesarios
-        JTextField contrasena = (JTextField) TestUtils.getComponentForName(controlador.getVista(), "textoContra");
-        JTextField nombre = (JTextField) TestUtils.getComponentForName(controlador.getVista(), "textUser");
-        JButton aceptarLog = (JButton) TestUtils.getComponentForName(controlador.getVista(), "botonIngresar");
+        JTextField contrasena = (JTextField) TestUtils.getComponentForName(ventana, "textoContra");
+        JTextField nombre = (JTextField) TestUtils.getComponentForName(ventana , "textUser");
+        JButton aceptarLog = (JButton) TestUtils.getComponentForName(ventana , "botonIngresar");
         
         //lleno los JTextField
         TestUtils.clickComponent(nombre, robot);

@@ -12,6 +12,7 @@ import modelo.Producto;
 import negocio.Sistema;
 import presentacion.IVistaOperario;
 import presentacion.VLogin;
+import presentacion.VOperario;
 import presentacion.VPedido;
 
 public class ControladorOperario implements ActionListener {
@@ -35,6 +36,13 @@ public class ControladorOperario implements ActionListener {
 		this.vista = vista;
 		this.vista.setActionListener(this);
 	}
+	
+	 public ControladorOperario(VOperario ventana) {    //Metodo para test
+			Sistema.getInstance().setOpLogueado(null);
+			instance = null;
+			this.vista = ventana;
+			this.vista.setActionListener(this);
+		}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

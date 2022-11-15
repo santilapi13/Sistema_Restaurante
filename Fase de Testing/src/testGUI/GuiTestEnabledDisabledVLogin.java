@@ -35,7 +35,8 @@ public class GuiTestEnabledDisabledVLogin
     @Before
     public void setUp() throws Exception
     {
-      ventana =  new VLogin();
+    	ventana =  new VLogin();
+        controlador = new ControladorLogin(ventana);
        
     }
 

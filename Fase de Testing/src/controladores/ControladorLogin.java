@@ -26,6 +26,15 @@ public class ControladorLogin implements ActionListener{
 			instance = new ControladorLogin();
 		return instance;
 	}
+	
+	
+	 public ControladorLogin(VLogin ventana) {    //Metodo para test
+		Sistema.getInstance().setOpLogueado(null);
+		instance = null;
+		this.vista = ventana;
+		this.vista.setActionListener(this);
+	}
+	
 
 	public IVistaLogin getVista() {
 		return vista;
