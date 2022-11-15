@@ -70,6 +70,12 @@ public class VLogin extends JFrame implements KeyListener, IVistaLogin {
 		this.panel.add(this.btnIngresar);
 		this.btnIngresar.setEnabled(false);
 		this.setVisible(true);
+		
+		//nombres de componentes
+		this.btnIngresar.setName("botonIngresar");
+		this.textPass.setName("textoContra");
+		this.textUser.setName("textUser");
+	    
 	}
 
 	public void keyPressed(KeyEvent e) {

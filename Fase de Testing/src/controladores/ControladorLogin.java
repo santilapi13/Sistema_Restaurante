@@ -5,12 +5,15 @@ import java.awt.event.ActionListener;
 
 import negocio.Sistema;
 import presentacion.IVistaLogin;
+import presentacion.InterfazOptionPanel;
+import presentacion.MiOptionPane;
 import presentacion.VLogin;
 
 public class ControladorLogin implements ActionListener{
 
 	private IVistaLogin vista = null;
 	private static ControladorLogin instance = null;
+	
 
 	private ControladorLogin() {
 		Sistema.getInstance().setOpLogueado(null);

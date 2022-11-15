@@ -153,9 +153,6 @@ public class TestCerrarComanda {
 				Assert.fail("No debe largar esta excepcion, ya testeada.");
 				e.printStackTrace();
 			}
-
-			
-		
 		
 	}
 	

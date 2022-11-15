@@ -31,6 +31,8 @@ import modelo.Pedido;
 import modelo.Producto;
 import modelo.PromoProducto;
 import modelo.PromoTemporal;
+import presentacion.InterfazOptionPanel;
+import presentacion.MiOptionPane;
 import presentacion.VAdmin;
 import presentacion.VOperario;
 import presentacion.VPedido;
@@ -40,10 +42,20 @@ public class Sistema {
 	private static Sistema instance = null;
 	private Cerveceria cerveceria = Cerveceria.getInstance();
 	private Operario opLogueado;
+	
+	private InterfazOptionPanel optionpane = new MiOptionPane();
 
 	private Sistema() {
 
 	}
+
+	
+	
+	public void setOptionpane(InterfazOptionPanel optionpane) {
+		this.optionpane = optionpane;
+	}
+
+
 
 	public static Sistema getInstance() {
 		if (instance == null)
@@ -70,9 +82,10 @@ public class Sistema {
 				ControladorAdmin.getInstance().getVista().actualizaListaOperarios(cerveceria.getOperarios());
 				ControladorAdmin.getInstance().getVista().actualizaListaPromoTemp(cerveceria.getPromoTemporales());
 				ControladorAdmin.getInstance().getVista().actualizaListaPromoProd(cerveceria.getPromosProducto());
-			} else
-				JOptionPane.showMessageDialog(null, "Usuario o contrasena incorrecta");
-		else {
+			} else 
+				this.optionpane.ShowMessage(null, "Usuario o contrasena incorrecta");//JOptionPane.showMessageDialog(null, "Usuario o contrasena incorrecta");
+				
+				else {
 			Operario auxOp = cerveceria.getOperario(user);
 			if (auxOp != null && auxOp.getPassword().equals(pass))
 				if (auxOp.isActivo()) {
@@ -84,11 +97,12 @@ public class Sistema {
 					ControladorOperario.getInstance().getVista().actualizaListaMesas(cerveceria.getMesas());
 					ControladorOperario.getInstance().getVista().actualizaListaMozos(cerveceria.getMozos());
 					ControladorOperario.getInstance().getVista().actualizaListaVenta(cerveceria.getVentas());
-				} else
-					JOptionPane.showMessageDialog(null, "Usuario inactivo");
-			else
-				JOptionPane.showMessageDialog(null, "Usuario o contrasena incorrecta");
-		}
+				} else 
+					this.optionpane.ShowMessage(null, "Usuario o contrasena incorrecta");//JOptionPane.showMessageDialog(null, "Usuario inactivo");
+				
+			else 
+				this.optionpane.ShowMessage(null, "Usuario o contrasena incorrecta");//JOptionPane.showMessageDialog(null, "Usuario o contrasena incorrecta");
+			}
 	}
 
 	@SuppressWarnings("deprecation")

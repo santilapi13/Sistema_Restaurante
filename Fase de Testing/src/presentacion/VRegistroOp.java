@@ -118,6 +118,9 @@ public class VRegistroOp extends JFrame implements KeyListener, IVistaAdmin {
 		this.btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		this.contentPane.add(this.btnNewButton, BorderLayout.SOUTH);
 		this.setVisible(true);
+		
+		
+		
 	}
 
 	@SuppressWarnings("deprecation")
