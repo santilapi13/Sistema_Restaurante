@@ -174,7 +174,7 @@ public class Sistema {
 			actualizarListaAdmin();
 			persistir();
 		} catch (ProductoRepetidoException e) {
-			JOptionPane.showMessageDialog(null, "Producto ya existente");
+			this.optionpane.ShowMessage(null, "Producto ya existente");//JOptionPane.showMessageDialog(null, "Producto ya existente");
 		}
 	}
 

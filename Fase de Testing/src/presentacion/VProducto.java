@@ -116,6 +116,14 @@ public class VProducto extends JFrame implements IVistaAdmin, KeyListener {
 		this.btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		this.contentPane.add(this.btnSalir, BorderLayout.SOUTH);
 		this.setVisible(true);
+		
+		this.btnEnviar.setName("Enviar");
+		this.btnSalir.setName("Salir");
+		this.textVenta.setName("textVenta");
+		this.textCosto.setName("textCosto");
+		this.textNombre.setName("textNombre");
+		this.spinnerStock.setName("Stock");
+		
 	}
 
 	@Override
@@ -305,8 +313,9 @@ public class VProducto extends JFrame implements IVistaAdmin, KeyListener {
 
 	@Override
 	public int getCant() {
-		Double aux = (double) this.spinnerStock.getValue();
-		return aux.intValue();
+		//Double aux = (double) this.spinnerStock.getValue();
+		//return aux.intValue();
+		return (Integer) this.spinnerStock.getValue();
 
 	}
 

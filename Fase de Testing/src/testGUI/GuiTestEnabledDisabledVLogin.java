@@ -54,6 +54,7 @@ public class GuiTestEnabledDisabledVLogin
     {
         //obtengo las referencias a los componentes necesarios
         JButton aceptarLog = (JButton) TestUtils.getComponentForName(ventana, "botonIngresar");
+        
         //verifico los resultados
         Assert.assertFalse("El boton de login deberia estar deshablitado", aceptarLog.isEnabled());
     }

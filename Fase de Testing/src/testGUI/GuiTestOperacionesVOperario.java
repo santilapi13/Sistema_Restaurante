@@ -258,7 +258,7 @@ public class GuiTestOperacionesVOperario {
 	  
 	    
 	    @Test
-	    public void testAsignarYDesasignarMesaAMozo()
+	    public void testAsignarMesaAMozo()
 	    {
 	    	   
 	        // Hay una JList dentro de un JScrollPane
@@ -361,19 +361,19 @@ public class GuiTestOperacionesVOperario {
 	        	Assert.fail("La mesa no fue asignada correctamente");
 	        
 	        robot.delay(1000);
-	        TestUtils.clickComponent(botonDesasignar, robot);
-	        robot.delay(1000);
-	        
-	        
-	        
-	        if (Cerveceria.getInstance().getMesas().get(0).isAsignado())
-	        	Assert.fail("La mesa no fue desasignada correctamente");
 	       
 	        
 	            
 	        }
-	    
-	   
+	    @Test 
+	   public void TestDesasignarMesas() {
+	    	JButton botonDesasignar = (JButton) TestUtils.getComponentForName( ventana, "Desasignar");
+	    	TestUtils.clickComponent(botonDesasignar, robot);
+	    	robot.delay(1000);
+	    	if (Cerveceria.getInstance().getMesas().get(0).isAsignado())
+	        	Assert.fail("La mesa no fue desasignada correctamente");
+	    	
+	   }
 	    
 	
 	

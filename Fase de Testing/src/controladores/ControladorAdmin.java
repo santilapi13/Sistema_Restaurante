@@ -36,6 +36,13 @@ public class ControladorAdmin implements ActionListener {
 		}
 	}
 	
+	public ControladorAdmin(VProducto ventana) {    //Metodo para test
+		Sistema.getInstance().setOpLogueado(null);
+		instance = null;
+		this.vista = ventana;
+		this.vista.setActionListener(this);
+	}
+	
 	private void setNuevaContrasena() {
 		String pass = JOptionPane.showInputDialog(null, "Ingrese nueva contraseña para ADMIN");
 		while (pass == null || pass.isEmpty()|| pass.length()<6|| pass.length()>12|| !verifica(pass))

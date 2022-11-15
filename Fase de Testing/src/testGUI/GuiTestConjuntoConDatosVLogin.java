@@ -1,6 +1,7 @@
 package testGUI;
 
 import controladores.ControladorLogin;
+import controladores.ControladorOperario;
 import modelo.Cerveceria;
 import modelo.Operario;
 import negocio.Sistema;
@@ -76,6 +77,10 @@ public class GuiTestConjuntoConDatosVLogin
         //verifico los resultados
         Assert.assertEquals("Deberia coincidir el nombre de usuario con el nombre ingresado", "Juanpe",
                             controlador.getVista().getUsername());
+        Assert.assertEquals("Deberia coincidir La contraseña ", "Juanpe123",
+                controlador.getVista().getPassword());
+        
+        
     }
     
     @Test
@@ -99,6 +104,15 @@ public class GuiTestConjuntoConDatosVLogin
         Assert.assertEquals("Mensaje incorrecto, deberia decir"+ "Usuario o contrasena incorrecta", "Usuario o contrasena incorrecta"  ,pane.getMensaje());
     }
 
+    
+    @Test
+    public void testCantidad()
+    {
+    	if (Cerveceria.getInstance().getOperarios().size() != 1)
+    		Assert.fail("Deberia haber 1 operario registrado!");
+    
+    }
+    
     
     @Test
     public void testLogContrasenaMal()
