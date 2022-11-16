@@ -1,5 +1,5 @@
 # taller-de-programacion-1
-Video: https://github.com/santilapi13/taller-de-programacion-1
+Video: https://www.youtube.com/watch?v=Kbid5r0Fm70
 
 Testeadores:
 
