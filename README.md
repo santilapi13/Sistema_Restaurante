@@ -1,4 +1,6 @@
 # taller-de-programacion-1
+Video: https://github.com/santilapi13/taller-de-programacion-1
+
 Testeadores:
 
 Wenceslao Ávalos
